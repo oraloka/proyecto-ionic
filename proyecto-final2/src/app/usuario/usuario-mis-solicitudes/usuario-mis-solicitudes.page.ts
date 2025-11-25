@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 })
 export class UsuarioMisSolicitudesPage implements OnInit {
   requests: any[] = [];
+  selectedRequest: any = null;
 
   constructor(private auth: AuthService, private req: RequestService, private router: Router) {}
 
@@ -21,5 +22,13 @@ export class UsuarioMisSolicitudesPage implements OnInit {
       return;
     }
     this.requests = this.req.getRequestsByUser(user.id!);
+  }
+
+  viewDetails(r: any) {
+    this.selectedRequest = r;
+  }
+
+  closeDetails() {
+    this.selectedRequest = null;
   }
 }

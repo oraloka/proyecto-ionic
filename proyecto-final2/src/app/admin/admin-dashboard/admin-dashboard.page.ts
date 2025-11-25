@@ -3,7 +3,7 @@ import { RequestService } from '../../services/request.service';
 import { EmailService } from '../../services/email.service';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
-import { ToastController } from '@ionic/angular';
+import { ToastController, AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -16,7 +16,7 @@ export class AdminDashboardPage implements OnInit {
   filters: any = { type: '', placa: '', cedula: '' };
   selectedRequest: any = null;
 
-  constructor(private req: RequestService, private email: EmailService, private auth: AuthService, private router: Router, private toast: ToastController) {}
+  constructor(private req: RequestService, private email: EmailService, private auth: AuthService, private router: Router, private toast: ToastController, private alertController: AlertController) {}
 
   ngOnInit() {
     if (!this.auth.isAdmin()) {
@@ -45,13 +45,33 @@ export class AdminDashboardPage implements OnInit {
   }
 
   async reject(id: string) {
-    const updated = this.req.updateRequestStatus(id, 'rechazada');
-    if (updated) {
-      await this.email.sendRequestRejectedEmail(updated.userEmail, updated.id, updated.userName);
-      const t = await this.toast.create({ message: 'Solicitud rechazada y notificación enviada', duration: 2000, color: 'medium' });
-      t.present();
-      this.load();
-    }
+    const alert = await this.alertController.create({
+      header: 'Motivo de rechazo',
+      inputs: [
+        {
+          name: 'reason',
+          type: 'textarea',
+          placeholder: 'Describe por qué se rechaza la solicitud'
+        }
+      ],
+      buttons: [
+        { text: 'Cancelar', role: 'cancel' },
+        {
+          text: 'Confirmar',
+          handler: async (data: { reason?: string }) => {
+            const reason = data?.reason || '';
+            const updated = this.req.updateRequestStatus(id, 'rechazada', reason);
+            if (updated) {
+              await this.email.sendRequestRejectedEmail(updated.userEmail, updated.id, updated.userName);
+              const t = await this.toast.create({ message: 'Solicitud rechazada y notificación enviada', duration: 2000, color: 'medium' });
+              t.present();
+              this.load();
+            }
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 
   logout() {

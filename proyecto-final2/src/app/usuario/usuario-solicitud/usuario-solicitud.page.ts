@@ -41,9 +41,25 @@ export class UsuarioSolicitudPage implements OnInit {
       this.router.navigate(['/login-usuario']);
       return;
     }
-    this.services = this.requestSvc.getServices();
-    this.services.forEach(s => (this.selectedServices[s.id] = false));
+      // Block request creation if user profile is incomplete
+      const missing = [];
+      if (!this.user.nombre) missing.push('nombre');
+      if (!this.user.apellido) missing.push('apellido');
+      if (!this.user.telefono) missing.push('teléfono');
+      if (!this.user.cedula) missing.push('cédula');
+      if (!this.user.direccion) missing.push('dirección');
+      if (missing.length > 0) {
+        this.toast.create({ message: 'Completa tu perfil antes de solicitar mantenimiento', duration: 3000, color: 'warning' }).then(t => t.present());
+        // Signal dashboard to open editor
+        localStorage.setItem('openEditProfile', '1');
+        this.router.navigate(['/usuario-dashboard']);
+        return;
+      }
+    
+      this.services = this.requestSvc.getServices();
+      this.services.forEach(s => (this.selectedServices[s.id] = false));
   }
+
 
   calculateTotal(): number {
     return this.services

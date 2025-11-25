@@ -24,6 +24,12 @@ export class UsuarioDashboardPage implements OnInit {
     } else {
       this.initEditForm();
     }
+    // If redirected to complete profile, open editor automatically
+    const open = localStorage.getItem('openEditProfile');
+    if (open === '1') {
+      localStorage.removeItem('openEditProfile');
+      this.toggleEditProfile();
+    }
   }
 
   initEditForm() {

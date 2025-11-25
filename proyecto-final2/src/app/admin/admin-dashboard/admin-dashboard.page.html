@@ -69,6 +69,7 @@
         <p><strong>Notas:</strong> {{selectedRequest.additionalNotes}}</p>
         <p><strong>Total:</strong> {{selectedRequest.totalPrice | currency}}</p>
         <p><strong>Estado:</strong> {{selectedRequest.status}}</p>
+        <p *ngIf="selectedRequest.adminNotes"><strong>Motivo rechazo:</strong> {{selectedRequest.adminNotes}}</p>
       </ion-card-content>
     </ion-card>
 </ion-content>

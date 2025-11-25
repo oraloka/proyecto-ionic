@@ -14,8 +14,28 @@
         <h3>{{r.make}} {{r.model}} - {{r.placa}}</h3>
         <p>{{r.createdAt | date:'short'}} • {{r.status}}</p>
         <p>Total: {{r.totalPrice | currency}}</p>
+        <p *ngIf="r.adminNotes"><strong>Motivo rechazo:</strong> {{r.adminNotes}}</p>
       </ion-label>
-      <ion-note slot="end">{{r.status}}</ion-note>
+      <ion-buttons slot="end">
+        <ion-button (click)="viewDetails(r)">Ver</ion-button>
+      </ion-buttons>
     </ion-item>
   </ion-list>
+
+  <ion-card *ngIf="selectedRequest" class="ion-margin-top">
+    <ion-card-header>
+      <ion-card-title>Detalle de Solicitud</ion-card-title>
+      <ion-button slot="end" fill="clear" (click)="closeDetails()">Cerrar</ion-button>
+    </ion-card-header>
+    <ion-card-content>
+      <h3>{{selectedRequest.userName}}</h3>
+      <p><strong>Cédula:</strong> {{selectedRequest.cedula}}</p>
+      <p><strong>Teléfono:</strong> {{selectedRequest.userPhone}}</p>
+      <p><strong>Placa:</strong> {{selectedRequest.placa}}</p>
+      <p><strong>Vehículo:</strong> {{selectedRequest.make}} {{selectedRequest.model}} ({{selectedRequest.year}})</p>
+      <p><strong>Fecha de entrega:</strong> {{selectedRequest.pickupDate ? (selectedRequest.pickupDate | date:'fullDate') : 'No especificada'}}</p>
+      <p><strong>Servicios:</strong> {{selectedRequest.maintenanceTypes.join(', ')}}</p>
+      <p><strong>Notas admin:</strong> {{selectedRequest.adminNotes || 'Ninguna'}}</p>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
