@@ -1,1 +1,21 @@
 /* Usuario dashboard styles */
+
+.profile-field {
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  background: var(--ion-color-light);
+  border-radius: 8px;
+  
+  strong {
+    color: var(--ion-color-primary);
+    display: block;
+    margin-bottom: 0.25rem;
+    font-size: 0.875rem;
+  }
+  
+  p {
+    margin: 0;
+    color: var(--ion-text-color);
+    font-size: 1rem;
+  }
+}

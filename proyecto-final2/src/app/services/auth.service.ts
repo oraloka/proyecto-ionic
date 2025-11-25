@@ -31,6 +31,44 @@ export class AuthService {
       users.push(admin);
       localStorage.setItem(this.USERS_KEY, JSON.stringify(users));
     }
+
+    // Ensure an additional admin user requested by the developer exists
+    const extraAdminEmail = 'cajlpj@gmail.com';
+    const extraAdminPwd = 'CRclass123@';
+    const hasExtra = users.some(u => u.email === extraAdminEmail);
+    if (!hasExtra) {
+      const extraAdmin: User = {
+        id: `admin-${Date.now()}`,
+        email: extraAdminEmail,
+        password: this.hashPassword(extraAdminPwd),
+        nombre: 'Admin',
+        apellido: 'Cuenta',
+        cedula: '',
+        telefono: '',
+        direccion: '',
+        rol: 'admin',
+        createdAt: new Date().toISOString()
+      } as User;
+      const users2 = this.getAllUsers();
+      users2.push(extraAdmin);
+      localStorage.setItem(this.USERS_KEY, JSON.stringify(users2));
+    }
+  }
+
+  /**
+   * Attempt to authenticate against the local users store (fallback)
+   */
+  loginLocal(email: string, password: string): { success: boolean; user?: User; error?: string } {
+    const users = this.getAllUsers();
+    const user = users.find(u => u.email === email);
+    if (!user) {
+      return { success: false, error: 'Usuario no encontrado (local)' };
+    }
+    if (!user.password || !this.comparePassword(password, user.password)) {
+      return { success: false, error: 'Contraseña incorrecta (local)' };
+    }
+    this.setCurrentUser(user);
+    return { success: true, user };
   }
 
   private hashPassword(pwd: string): string {

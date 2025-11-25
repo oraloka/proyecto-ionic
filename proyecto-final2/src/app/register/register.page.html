@@ -25,7 +25,21 @@
             type="text" 
             [(ngModel)]="name" 
             name="name" 
-            placeholder="Nombre completo"
+            placeholder="Nombre"
+            required>
+          </ion-input>
+        </div>
+      </div>
+
+      <!-- Last Name Field -->
+      <div class="form-group">
+        <div class="modern-input">
+          <ion-icon name="person-outline"></ion-icon>
+          <ion-input 
+            type="text" 
+            [(ngModel)]="apellido" 
+            name="apellido" 
+            placeholder="Apellido"
             required>
           </ion-input>
         </div>
@@ -80,6 +94,48 @@
             (click)="toggleConfirmPasswordVisibility()"
             class="toggle-password">
           </ion-icon>
+        </div>
+      </div>
+
+      <!-- Phone Field -->
+      <div class="form-group">
+        <div class="modern-input">
+          <ion-icon name="call-outline"></ion-icon>
+          <ion-input 
+            type="tel" 
+            [(ngModel)]="telefono" 
+            name="telefono" 
+            placeholder="Teléfono"
+            required>
+          </ion-input>
+        </div>
+      </div>
+
+      <!-- Address Field -->
+      <div class="form-group">
+        <div class="modern-input">
+          <ion-icon name="location-outline"></ion-icon>
+          <ion-input 
+            type="text" 
+            [(ngModel)]="direccion" 
+            name="direccion" 
+            placeholder="Dirección"
+            required>
+          </ion-input>
+        </div>
+      </div>
+
+      <!-- Cedula Field -->
+      <div class="form-group">
+        <div class="modern-input">
+          <ion-icon name="card-outline"></ion-icon>
+          <ion-input 
+            type="text" 
+            [(ngModel)]="cedula" 
+            name="cedula" 
+            placeholder="Cédula"
+            required>
+          </ion-input>
         </div>
       </div>
 

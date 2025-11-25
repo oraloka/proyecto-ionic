@@ -72,10 +72,31 @@ export class LoginPage implements OnInit {
       } catch (e) {
         console.warn('Could not ensure local user by email', e);
       }
-      // Redirect to usuario-dashboard instead of home
-      this.router.navigate(['/usuario-dashboard']);
+      // If the local user is admin, redirect to admin dashboard
+      const current = this.authService.getCurrentUser();
+      if (current && current.rol === 'admin') {
+        this.router.navigate(['/admin-dashboard']);
+      } else {
+        this.router.navigate(['/usuario-dashboard']);
+      }
     } catch (err: any) {
       console.error('Login error', err);
+      // If Firebase user not found or Firebase failed, try local fallback
+      try {
+        const local = this.authService.loginLocal(this.email, this.password);
+        if (local.success && local.user) {
+          const user = local.user;
+          if (user.rol === 'admin') {
+            this.router.navigate(['/admin-dashboard']);
+          } else {
+            this.router.navigate(['/usuario-dashboard']);
+          }
+          return;
+        }
+      } catch (e) {
+        console.warn('Local login attempt failed', e);
+      }
+
       if (err && err.code === 'auth/user-not-found') {
         const toast = await this.toastCtrl.create({
           message: 'No se encuentra un usuario con ese email',

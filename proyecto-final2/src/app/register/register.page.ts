@@ -17,9 +17,13 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 export class RegisterPage implements OnInit {
 
   name: string = '';
+  apellido: string = '';
   email: string = '';
   password: string = '';
   confirmPassword: string = '';
+  telefono: string = '';
+  direccion: string = '';
+  cedula: string = '';
   showPassword: boolean = false;
   showConfirmPassword: boolean = false;
   termsAccepted: boolean = false;
@@ -44,7 +48,7 @@ export class RegisterPage implements OnInit {
   }
 
   async onRegister() {
-    if (!this.name || !this.email || !this.password || !this.confirmPassword) {
+    if (!this.name || !this.apellido || !this.email || !this.password || !this.confirmPassword || !this.telefono || !this.direccion || !this.cedula) {
       const toast = await this.toastCtrl.create({
         message: 'Completa todos los campos',
         duration: 2000,
@@ -77,13 +81,32 @@ export class RegisterPage implements OnInit {
     this.saving = true;
     try {
       await runInInjectionContext(this.envInjector, async () => await this.afAuth.createUserWithEmailAndPassword(this.email, this.password));
+      
+      // Save user to localStorage with additional fields
+      const users = JSON.parse(localStorage.getItem('mf_users_v1') || '[]');
+      const newUser = {
+        id: `user-${Date.now()}`,
+        nombre: this.name,
+        apellido: this.apellido,
+        email: this.email,
+        telefono: this.telefono,
+        direccion: this.direccion,
+        cedula: this.cedula,
+        password: btoa(this.password),
+        rol: 'usuario',
+        createdAt: new Date().toISOString()
+      };
+      users.push(newUser);
+      localStorage.setItem('mf_users_v1', JSON.stringify(users));
+      localStorage.setItem('mf_current_user_v1', JSON.stringify(newUser));
+
       const toast = await this.toastCtrl.create({
         message: 'Cuenta creada correctamente',
         duration: 2000,
         color: 'success'
       });
       toast.present();
-      this.router.navigate(['/login']);
+      this.router.navigate(['/usuario-dashboard']);
     } catch (err: any) {
       console.error('Register error', err);
       const toast = await this.toastCtrl.create({
