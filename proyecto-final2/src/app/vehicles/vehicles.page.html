@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Vehículos</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="add()">Agregar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let v of vehicles">
+      <ion-label>
+        <h2>{{v.make}} {{v.model}}</h2>
+        <p>{{v.year}} • {{v.mileage || 'km no definido'}}</p>
+      </ion-label>
+      <ion-buttons slot="end">
+        <ion-button (click)="edit(v.id)">Editar</ion-button>
+        <ion-button color="danger" (click)="remove(v.id)">Borrar</ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-list>
+  <div *ngIf="vehicles.length===0" class="centered">
+    <p>No hay vehículos. Añade uno.</p>
+  </div>
+</ion-content>

@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Registrar / Editar vehículo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form #f="ngForm" (ngSubmit)="save(f)">
+    <ion-list>
+      <ion-item>
+        <ion-label position="stacked">Marca</ion-label>
+        <ion-input name="make" [(ngModel)]="vehicle.make"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Modelo</ion-label>
+        <ion-input name="model" [(ngModel)]="vehicle.model"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Año</ion-label>
+        <ion-input type="number" name="year" [(ngModel)]="vehicle.year"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Kilometraje</ion-label>
+        <ion-input type="number" name="mileage" [(ngModel)]="vehicle.mileage"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Próximo cambio de aceite</ion-label>
+        <ion-datetime display-format="DD/MM/YYYY" name="nextOilChange" [(ngModel)]="vehicle.nextOilChange"></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Notas</ion-label>
+        <ion-textarea name="notes" [(ngModel)]="vehicle.notes"></ion-textarea>
+      </ion-item>
+    </ion-list>
+    <ion-footer>
+      <ion-toolbar>
+        <ion-buttons slot="end">
+          <ion-button type="submit">Guardar</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-footer>
+  </form>
+</ion-content>

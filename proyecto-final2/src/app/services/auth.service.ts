@@ -1,0 +1,133 @@
+import { Injectable } from '@angular/core';
+import { User } from '../models/user.model';
+
+@Injectable({ providedIn: 'root' })
+export class AuthService {
+  private USERS_KEY = 'mf_users_v1';
+  private CURRENT_USER_KEY = 'mf_current_user_v1';
+
+  constructor() {
+    this.initializeAdminUser();
+  }
+
+  private initializeAdminUser() {
+    const users = this.getAllUsers();
+    const adminExists = users.some(u => u.rol === 'admin');
+    if (!adminExists) {
+      const admin: User = {
+        id: 'admin-001',
+        email: 'admin@mantenimiento.com',
+        password: this.hashPassword('admin123'),
+        nombre: 'Admin',
+        apellido: 'Sistema',
+        cedula: '0000000000',
+        telefono: '3000000000',
+        direccion: 'Central',
+        edad: 30,
+        rol: 'admin',
+        createdAt: new Date().toISOString()
+      };
+      const users = this.getAllUsers();
+      users.push(admin);
+      localStorage.setItem(this.USERS_KEY, JSON.stringify(users));
+    }
+  }
+
+  private hashPassword(pwd: string): string {
+    // Simple hash - en producción usar bcrypt
+    return btoa(pwd);
+  }
+
+  private comparePassword(pwd: string, hash: string): boolean {
+    return btoa(pwd) === hash;
+  }
+
+  getAllUsers(): User[] {
+    const raw = localStorage.getItem(this.USERS_KEY);
+    return raw ? JSON.parse(raw) as User[] : [];
+  }
+
+  getUserById(id: string): User | null {
+    const users = this.getAllUsers();
+    return users.find(u => u.id === id) || null;
+  }
+
+  getCurrentUser(): User | null {
+    const raw = localStorage.getItem(this.CURRENT_USER_KEY);
+    return raw ? JSON.parse(raw) as User : null;
+  }
+
+  setCurrentUser(user: User) {
+    localStorage.setItem(this.CURRENT_USER_KEY, JSON.stringify(user));
+  }
+
+  login(email: string, password: string): { success: boolean; user?: User; error?: string } {
+    const users = this.getAllUsers();
+    const user = users.find(u => u.email === email);
+    if (!user) {
+      return { success: false, error: 'Usuario no encontrado' };
+    }
+    if (!user.password || !this.comparePassword(password, user.password)) {
+      return { success: false, error: 'Contraseña incorrecta' };
+    }
+    this.setCurrentUser(user);
+    return { success: true, user };
+  }
+
+  register(user: Omit<User, 'id' | 'rol' | 'createdAt'>): { success: boolean; user?: User; error?: string } {
+    const users = this.getAllUsers();
+    if (users.some(u => u.email === user.email)) {
+      return { success: false, error: 'Email ya registrado' };
+    }
+    if (users.some(u => u.cedula === user.cedula)) {
+      return { success: false, error: 'Cédula ya registrada' };
+    }
+    const newUser: User = {
+      id: `user-${Date.now()}`,
+      ...user,
+      password: user.password ? this.hashPassword(user.password) : undefined,
+      rol: 'usuario',
+      createdAt: new Date().toISOString()
+    };
+    users.push(newUser);
+    localStorage.setItem(this.USERS_KEY, JSON.stringify(users));
+    this.setCurrentUser(newUser);
+    return { success: true, user: newUser };
+  }
+
+  googleLogin(email: string, nombre: string, apellido: string): { success: boolean; user?: User; error?: string } {
+    const users = this.getAllUsers();
+    let user = users.find(u => u.email === email);
+    if (!user) {
+      user = {
+        id: `user-${Date.now()}`,
+        email,
+        nombre,
+        apellido,
+        cedula: '',
+        telefono: '',
+        direccion: '',
+        googleAuth: true,
+        rol: 'usuario',
+        createdAt: new Date().toISOString()
+      };
+      users.push(user);
+      localStorage.setItem(this.USERS_KEY, JSON.stringify(users));
+    }
+    this.setCurrentUser(user);
+    return { success: true, user };
+  }
+
+  logout() {
+    localStorage.removeItem(this.CURRENT_USER_KEY);
+  }
+
+  isLoggedIn(): boolean {
+    return this.getCurrentUser() !== null;
+  }
+
+  isAdmin(): boolean {
+    const user = this.getCurrentUser();
+    return user?.rol === 'admin';
+  }
+}

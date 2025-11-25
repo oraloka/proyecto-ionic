@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Alertas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let a of alerts">
+      <ion-label>
+        <h2>{{a.vehicle.make}} {{a.vehicle.model}}</h2>
+        <p>{{a.info}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <div *ngIf="alerts.length===0" class="centered">No hay alertas</div>
+</ion-content>

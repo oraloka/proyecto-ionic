@@ -1,0 +1,77 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/usuario-dashboard"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Solicitar Mantenimiento</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Información del Vehículo</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <form (ngSubmit)="submitRequest()">
+        <!-- Vehículo -->
+        <ion-item>
+          <ion-label position="stacked">Placa del Vehículo</ion-label>
+          <ion-input [(ngModel)]="form.placa" name="placa" placeholder="ABC-123" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Marca</ion-label>
+          <ion-input [(ngModel)]="form.make" name="make" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Modelo</ion-label>
+          <ion-input [(ngModel)]="form.model" name="model" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Año</ion-label>
+          <ion-input type="number" [(ngModel)]="form.year" name="year" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Tipo de Vehículo</ion-label>
+          <ion-select [(ngModel)]="form.vehicleType" name="vehicleType" required>
+            <ion-select-option value="sedan">Sedán</ion-select-option>
+            <ion-select-option value="suv">SUV</ion-select-option>
+            <ion-select-option value="todoterreno">Todoterreno</ion-select-option>
+            <ion-select-option value="deportivo">Deportivo</ion-select-option>
+            <ion-select-option value="camioneta">Camioneta</ion-select-option>
+            <ion-select-option value="minivan">Minivan</ion-select-option>
+            <ion-select-option value="otro">Otro</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <!-- Servicios -->
+        <ion-item>
+          <ion-label>Selecciona los servicios</ion-label>
+        </ion-item>
+        <ion-item *ngFor="let service of services">
+          <ion-label>{{service.name}}</ion-label>
+          <ion-checkbox slot="start" [(ngModel)]="selectedServices[service.id]" [name]="'service-' + service.id"></ion-checkbox>
+          <ion-note slot="end">{{service.price | currency}}</ion-note>
+        </ion-item>
+
+        <!-- Total -->
+        <ion-card>
+          <ion-card-content>
+            <h3>Total: {{calculateTotal() | currency}}</h3>
+          </ion-card-content>
+        </ion-card>
+
+        <!-- Notas adicionales -->
+        <ion-item>
+          <ion-label position="stacked">Notas Adicionales</ion-label>
+          <ion-textarea [(ngModel)]="form.additionalNotes" name="additionalNotes" placeholder="Describe cualquier problema que tengas..."></ion-textarea>
+        </ion-item>
+
+        <ion-button expand="block" type="submit" color="success" class="ion-margin-top">
+          <ion-icon slot="start" name="checkmark-circle"></ion-icon>
+          Enviar Solicitud
+        </ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

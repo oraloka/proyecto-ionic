@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Estadísticas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let s of stats">
+      <ion-label>
+        <h2>{{s.month}}</h2>
+        <p>Total: {{s.total | currency}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <div *ngIf="stats.length===0" class="centered">Sin datos</div>
+</ion-content>

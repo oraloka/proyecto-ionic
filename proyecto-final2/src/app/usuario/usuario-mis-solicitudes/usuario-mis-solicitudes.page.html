@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/usuario-dashboard"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Mis Solicitudes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list>
+    <ion-item *ngFor="let r of requests">
+      <ion-label>
+        <h3>{{r.make}} {{r.model}} - {{r.placa}}</h3>
+        <p>{{r.createdAt | date:'short'}} • {{r.status}}</p>
+        <p>Total: {{r.totalPrice | currency}}</p>
+      </ion-label>
+      <ion-note slot="end">{{r.status}}</ion-note>
+    </ion-item>
+  </ion-list>
+</ion-content>

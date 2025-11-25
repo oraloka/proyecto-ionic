@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Admin - Solicitudes</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()">Salir</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Filtros</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="stacked">Tipo de Vehículo</ion-label>
+        <ion-select [(ngModel)]="filters.type" (ionChange)="applyFilters()">
+          <ion-select-option value="">Todos</ion-select-option>
+          <ion-select-option value="sedan">Sedán</ion-select-option>
+          <ion-select-option value="suv">SUV</ion-select-option>
+          <ion-select-option value="todoterreno">Todoterreno</ion-select-option>
+          <ion-select-option value="deportivo">Deportivo</ion-select-option>
+          <ion-select-option value="camioneta">Camioneta</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Placa</ion-label>
+        <ion-input [(ngModel)]="filters.placa" (ionChange)="applyFilters()"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Cédula</ion-label>
+        <ion-input [(ngModel)]="filters.cedula" (ionChange)="applyFilters()"></ion-input>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-list>
+    <ion-item *ngFor="let r of results">
+      <ion-label>
+        <h3>{{r.userName}} - {{r.make}} {{r.model}} ({{r.vehicleType}})</h3>
+        <p>{{r.placa}} • {{r.cedula}} • {{r.createdAt | date:'short'}}</p>
+        <p>Servicios: {{r.maintenanceTypes.join(', ')}}</p>
+        <p>Total: {{r.totalPrice | currency}}</p>
+      </ion-label>
+      <ion-buttons slot="end">
+        <ion-button color="success" (click)="accept(r.id)">Aceptar</ion-button>
+        <ion-button color="danger" (click)="reject(r.id)">Rechazar</ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-list>
+</ion-content>

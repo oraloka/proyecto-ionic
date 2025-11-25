@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Gastos de mantenimiento</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label>Vehículo</ion-label>
+      <ion-select [(ngModel)]="form.vehicleId">
+        <ion-select-option *ngFor="let v of vehicles" [value]="v.id">{{v.make}} {{v.model}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Cantidad</ion-label>
+      <ion-input type="number" [(ngModel)]="form.amount"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Fecha</ion-label>
+      <ion-datetime display-format="DD/MM/YYYY" [(ngModel)]="form.date"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Descripción</ion-label>
+      <ion-input [(ngModel)]="form.description"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-button expand="block" (click)="add()">Agregar gasto</ion-button>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-list-header>Historial</ion-list-header>
+    <ion-item *ngFor="let e of expenses">
+      <ion-label>
+        <h3>{{e.amount | currency}}</h3>
+        <p>{{e.date | date:'shortDate'}} • {{e.description}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

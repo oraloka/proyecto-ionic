@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Selecciona tu tipo de cuenta</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>¿Eres cliente o administrador?</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-button expand="block" color="primary" routerLink="/login-usuario">
+        <ion-icon slot="start" name="person"></ion-icon>
+        Soy Usuario
+      </ion-button>
+      <ion-button expand="block" color="secondary" routerLink="/login-admin">
+        <ion-icon slot="start" name="settings"></ion-icon>
+        Soy Administrador
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

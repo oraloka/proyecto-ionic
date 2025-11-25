@@ -1,0 +1,16 @@
+/* Minimal styles for admin dashboard to satisfy build */
+:host {
+  display: block;
+  padding: 0.5rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.filters {
+  margin-bottom: 0.5rem;
+}

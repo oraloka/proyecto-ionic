@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/login-select"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Login - Usuario</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Ingresa a tu cuenta</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <form (ngSubmit)="login()">
+        <ion-item>
+          <ion-label position="stacked">Email</ion-label>
+          <ion-input type="email" [(ngModel)]="email" name="email" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Contraseña</ion-label>
+          <ion-input type="password" [(ngModel)]="password" name="password" required></ion-input>
+        </ion-item>
+        <ion-button expand="block" type="submit" class="ion-margin-top">Ingresar</ion-button>
+      </form>
+      <ion-button expand="block" fill="outline" routerLink="/register-usuario" class="ion-margin-top">
+        Crear cuenta
+      </ion-button>
+      <hr>
+      <ion-button expand="block" color="danger" class="ion-margin-top">
+        <ion-icon slot="start" name="logo-google"></ion-icon>
+        Ingresar con Google
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

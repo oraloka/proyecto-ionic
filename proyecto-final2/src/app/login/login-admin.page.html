@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/login-select"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Login - Administrador</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Admin Login</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <form (ngSubmit)="login()">
+        <ion-item>
+          <ion-label position="stacked">Email</ion-label>
+          <ion-input type="email" [(ngModel)]="email" name="email" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Contraseña</ion-label>
+          <ion-input type="password" [(ngModel)]="password" name="password" required></ion-input>
+        </ion-item>
+        <ion-button expand="block" type="submit" color="secondary" class="ion-margin-top">Ingresar</ion-button>
+      </form>
+      <p class="ion-text-center ion-margin-top">
+        <small>Admin demo: admin@mantenimiento.com / admin123</small>
+      </p>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

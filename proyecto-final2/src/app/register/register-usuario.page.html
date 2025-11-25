@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/login-usuario"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Crear Cuenta</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Registro Completo</ion-card-title>
+      <ion-card-subtitle>Rellena todos los campos</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <form (ngSubmit)="register()">
+        <ion-item>
+          <ion-label position="stacked">Nombre</ion-label>
+          <ion-input [(ngModel)]="form.nombre" name="nombre" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Apellido</ion-label>
+          <ion-input [(ngModel)]="form.apellido" name="apellido" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Email</ion-label>
+          <ion-input type="email" [(ngModel)]="form.email" name="email" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Contraseña</ion-label>
+          <ion-input type="password" [(ngModel)]="form.password" name="password" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Cédula</ion-label>
+          <ion-input [(ngModel)]="form.cedula" name="cedula" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Teléfono</ion-label>
+          <ion-input [(ngModel)]="form.telefono" name="telefono" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Dirección</ion-label>
+          <ion-input [(ngModel)]="form.direccion" name="direccion"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Edad</ion-label>
+          <ion-input type="number" [(ngModel)]="form.edad" name="edad"></ion-input>
+        </ion-item>
+        <ion-button expand="block" type="submit" class="ion-margin-top">Registrarse</ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
