@@ -186,6 +186,24 @@ export class AuthService {
     localStorage.removeItem(this.CURRENT_USER_KEY);
   }
 
+  /**
+   * Set or update the password for a local user (hash stored).
+   */
+  setPassword(email: string, newPassword: string): boolean {
+    const users = this.getAllUsers();
+    const idx = users.findIndex(u => u.email === email);
+    if (idx === -1) return false;
+    users[idx].password = this.hashPassword(newPassword);
+    localStorage.setItem(this.USERS_KEY, JSON.stringify(users));
+    // If this is the current user, update current user store
+    const current = this.getCurrentUser();
+    if (current && current.email === email) {
+      current.password = users[idx].password;
+      this.setCurrentUser(current);
+    }
+    return true;
+  }
+
   isLoggedIn(): boolean {
     return this.getCurrentUser() !== null;
   }

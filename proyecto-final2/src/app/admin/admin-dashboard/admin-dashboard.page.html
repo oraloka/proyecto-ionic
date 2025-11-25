@@ -44,9 +44,14 @@
         <p>Total: {{r.totalPrice | currency}}</p>
       </ion-label>
       <ion-buttons slot="end">
-          <ion-button (click)="viewDetails(r)">Ver</ion-button>
-        <ion-button color="success" (click)="accept(r.id)">Aceptar</ion-button>
-        <ion-button color="danger" (click)="reject(r.id)">Rechazar</ion-button>
+        <ion-button (click)="viewDetails(r)">Ver</ion-button>
+        <ng-container *ngIf="r.status === 'pendiente'">
+          <ion-button color="success" (click)="accept(r.id)">Aceptar</ion-button>
+          <ion-button color="danger" (click)="reject(r.id)">Rechazar</ion-button>
+        </ng-container>
+        <ng-container *ngIf="r.status !== 'pendiente'">
+          <ion-note>{{r.status | titlecase}}</ion-note>
+        </ng-container>
       </ion-buttons>
     </ion-item>
   </ion-list>

@@ -13,7 +13,7 @@ import { ToastController } from '@ionic/angular';
 export class UsuarioDashboardPage implements OnInit {
   user: User | null = null;
   isEditingProfile = false;
-  editForm = { nombre: '', apellido: '', email: '', telefono: '', cedula: '', direccion: '' };
+  editForm = { nombre: '', apellido: '', email: '', telefono: '', cedula: '', direccion: '', password: '', confirmPassword: '' };
 
   constructor(private auth: AuthService, private router: Router, private toast: ToastController) {}
 
@@ -40,7 +40,9 @@ export class UsuarioDashboardPage implements OnInit {
         email: this.user.email || '',
         telefono: this.user.telefono || '',
         cedula: this.user.cedula || '',
-        direccion: this.user.direccion || ''
+        direccion: this.user.direccion || '',
+        password: '',
+        confirmPassword: ''
       };
     }
   }
@@ -65,6 +67,20 @@ export class UsuarioDashboardPage implements OnInit {
       this.user.telefono = this.editForm.telefono;
       this.user.cedula = this.editForm.cedula;
       this.user.direccion = this.editForm.direccion;
+
+      // If password fields provided, validate and set password via AuthService
+      if (this.editForm.password) {
+        if (this.editForm.password !== this.editForm.confirmPassword) {
+          const tt = await this.toast.create({ message: 'Las contraseñas no coinciden', duration: 2000, color: 'warning' });
+          tt.present();
+          return;
+        }
+        const ok = this.auth.setPassword(this.editForm.email, this.editForm.password);
+        if (!ok) {
+          const tt = await this.toast.create({ message: 'No se pudo actualizar la contraseña', duration: 2000, color: 'danger' });
+          tt.present();
+        }
+      }
 
       // Save to localStorage (both possible keys for compatibility)
       let users = JSON.parse(localStorage.getItem('mf_users_v1') || '[]');

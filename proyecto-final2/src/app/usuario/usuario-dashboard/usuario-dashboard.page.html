@@ -118,6 +118,14 @@
           <ion-label position="stacked">Dirección</ion-label>
           <ion-input [(ngModel)]="editForm.direccion" placeholder="Tu dirección" type="text"></ion-input>
         </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Nueva contraseña (opcional)</ion-label>
+          <ion-input [(ngModel)]="editForm.password" type="password" placeholder="Dejar vacío para no cambiar"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Confirmar contraseña</ion-label>
+          <ion-input [(ngModel)]="editForm.confirmPassword" type="password" placeholder="Confirma la nueva contraseña"></ion-input>
+        </ion-item>
 
         <ion-row class="ion-margin-top">
           <ion-col>

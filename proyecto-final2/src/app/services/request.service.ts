@@ -66,6 +66,10 @@ export class RequestService {
     const requests = this.getAllRequests();
     const idx = requests.findIndex(r => r.id === requestId);
     if (idx > -1) {
+      // Prevent changing status if it has already been decided
+      if (requests[idx].status && requests[idx].status !== 'pendiente') {
+        return null;
+      }
       requests[idx].status = status;
       requests[idx].responseDate = new Date().toISOString();
       if (adminNotes) requests[idx].adminNotes = adminNotes;
