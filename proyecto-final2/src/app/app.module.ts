@@ -10,6 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { HttpClientModule } from '@angular/common/http';
 import { environment } from '../environments/environment';
 
 @NgModule({
@@ -18,6 +19,9 @@ import { environment } from '../environments/environment';
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
+
+    // HTTP client for services
+    HttpClientModule,
 
     // 👇 Inicialización de Firebase con tus datos
     AngularFireModule.initializeApp(environment.firebaseConfig),

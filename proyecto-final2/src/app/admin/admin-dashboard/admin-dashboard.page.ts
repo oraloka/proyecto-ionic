@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { RequestService, EmailService } from '../../services/request.service';
+import { RequestService } from '../../services/request.service';
+import { EmailService } from '../../services/email.service';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';

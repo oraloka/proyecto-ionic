@@ -1,7 +1,10 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/usuario-dashboard"></ion-back-button>
+      <ion-button (click)="goBack()">
+        <ion-icon slot="start" name="arrow-back"></ion-icon>
+        Volver
+      </ion-button>
     </ion-buttons>
     <ion-title>Solicitar Mantenimiento</ion-title>
   </ion-toolbar>

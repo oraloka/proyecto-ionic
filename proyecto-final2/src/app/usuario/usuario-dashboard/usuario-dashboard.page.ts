@@ -21,6 +21,19 @@ export class UsuarioDashboardPage implements OnInit {
     }
   }
 
+  goToNewRequest() {
+    // Debug: show current local user and attempt navigation
+    console.log('Navigating to usuario-solicitud. Current user:', this.user);
+    if (!this.user) {
+      console.warn('No current user — redirecting to login');
+      this.router.navigate(['/login-usuario']);
+      return;
+    }
+    this.router.navigateByUrl('/usuario-solicitud').catch(err => {
+      console.error('Navigation error to /usuario-solicitud', err);
+    });
+  }
+
   logout() {
     this.auth.logout();
     this.router.navigate(['/login-select']);

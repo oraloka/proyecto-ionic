@@ -118,6 +118,32 @@ export class AuthService {
     return { success: true, user };
   }
 
+  /**
+   * Ensure there is a local user record for the given email. If none exists,
+   * create a minimal user and mark as current user.
+   */
+  ensureUserByEmail(email: string, nombre: string = '', apellido: string = ''): User {
+    const users = this.getAllUsers();
+    let user = users.find(u => u.email === email);
+    if (!user) {
+      user = {
+        id: `user-${Date.now()}`,
+        email,
+        nombre: nombre || '',
+        apellido: apellido || '',
+        cedula: '',
+        telefono: '',
+        direccion: '',
+        rol: 'usuario',
+        createdAt: new Date().toISOString()
+      } as User;
+      users.push(user);
+      localStorage.setItem(this.USERS_KEY, JSON.stringify(users));
+    }
+    this.setCurrentUser(user);
+    return user;
+  }
+
   logout() {
     localStorage.removeItem(this.CURRENT_USER_KEY);
   }

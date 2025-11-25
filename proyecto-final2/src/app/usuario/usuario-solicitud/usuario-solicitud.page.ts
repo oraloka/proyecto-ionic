@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { RequestService, EmailService } from '../../services/request.service';
+import { RequestService } from '../../services/request.service';
+import { EmailService } from '../../services/email.service';
 import { MaintenanceService, User } from '../../models/user.model';
 import { ToastController } from '@ionic/angular';
 
@@ -46,6 +47,10 @@ export class UsuarioSolicitudPage implements OnInit {
     return this.services
       .filter(s => this.selectedServices[s.id])
       .reduce((sum, s) => sum + s.price, 0);
+  }
+
+  goBack() {
+    this.router.navigate(['/usuario-dashboard']);
   }
 
   async submitRequest() {

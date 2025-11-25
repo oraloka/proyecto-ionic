@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { GoogleAuthProvider } from 'firebase/auth';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -24,7 +25,8 @@ export class LoginPage implements OnInit {
     private router: Router,
     private afAuth: AngularFireAuth,
     private toastCtrl: ToastController,
-    private envInjector: EnvironmentInjector
+    private envInjector: EnvironmentInjector,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
@@ -64,6 +66,12 @@ export class LoginPage implements OnInit {
     // Use Firebase Auth to sign in inside an injection context
     try {
       await runInInjectionContext(this.envInjector, async () => await this.afAuth.signInWithEmailAndPassword(this.email, this.password));
+      // Ensure local app user exists and set current user
+      try {
+        this.authService.ensureUserByEmail(this.email);
+      } catch (e) {
+        console.warn('Could not ensure local user by email', e);
+      }
       // Redirect to usuario-dashboard instead of home
       this.router.navigate(['/usuario-dashboard']);
     } catch (err: any) {
@@ -91,6 +99,22 @@ export class LoginPage implements OnInit {
       const provider = new GoogleAuthProvider();
       // Ensure AngularFire runs inside an injection context to avoid NG0203
       await runInInjectionContext(this.envInjector, async () => await this.afAuth.signInWithPopup(provider));
+      // Try to grab displayName and email to create local user if needed
+      try {
+        const current = await this.afAuth.currentUser;
+        const email = current?.email || '';
+        const display = current?.displayName || '';
+        let nombre = '';
+        let apellido = '';
+        if (display) {
+          const parts = display.split(' ');
+          nombre = parts.shift() || '';
+          apellido = parts.join(' ') || '';
+        }
+        if (email) this.authService.ensureUserByEmail(email, nombre, apellido);
+      } catch (e) {
+        console.warn('Could not sync Google user to local auth', e);
+      }
       // Redirect to usuario-dashboard instead of home for regular users
       this.router.navigate(['/usuario-dashboard']);
     } catch (err: any) {
