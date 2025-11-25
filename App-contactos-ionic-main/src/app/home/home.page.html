@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Contactos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let contact of contacts" (click)="viewContact(contact.id)" button>
+      <ion-label>
+        <h2>{{ contact.name }}</h2>
+        <p>{{ contact.phone }}</p>
+        <p *ngIf="contact.email">{{ contact.email }}</p>
+      </ion-label>
+      <ion-buttons slot="end">
+        <ion-button fill="solid" (click)="editContact(contact.id); $event.stopPropagation()" color="primary" size="default" aria-label="Editar contacto">
+          <ion-icon name="create" aria-hidden="true"></ion-icon>
+        </ion-button>
+        <ion-button fill="solid" (click)="deleteContact(contact.id); $event.stopPropagation()" color="danger" size="default" aria-label="Eliminar contacto">
+          <ion-icon name="trash" aria-hidden="true"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-list>
+  <ion-text *ngIf="contacts.length === 0" class="ion-padding">
+    No hay contactos. Agrega uno!
+  </ion-text>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="primary" (click)="addContact()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

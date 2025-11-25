@@ -1,0 +1,115 @@
+.groups-content {
+  --background: transparent;
+  background: linear-gradient(135deg, rgba(255, 107, 53, 0.1) 0%, rgba(247, 147, 30, 0.1) 50%, rgba(45, 90, 160, 0.1) 100%);
+}
+
+.page-header {
+  text-align: center;
+  padding: 30px 20px 20px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 0 0 25px 25px;
+  margin-bottom: 20px;
+}
+
+.page-header h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 8px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.page-header p {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
+  font-weight: 300;
+}
+
+.motorcycles-list {
+  padding: 0 16px;
+}
+
+.motorcycle-name {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--ion-color-primary);
+}
+
+.motorcycle-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+}
+
+.motorcycle-description {
+  color: var(--ion-color-medium);
+  line-height: 1.5;
+  margin: 8px 0;
+}
+
+.motorcycle-image {
+  border-radius: 10px;
+  margin-top: 10px;
+  max-height: 200px;
+  object-fit: cover;
+}
+
+.card-actions {
+  --inner-padding-top: 8px;
+  --inner-padding-bottom: 8px;
+  --inner-padding-start: 16px;
+  --inner-padding-end: 16px;
+  justify-content: space-between;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.empty-state ion-icon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  opacity: 0.7;
+}
+
+.empty-state h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.empty-state p {
+  font-size: 1rem;
+  margin-bottom: 30px;
+  opacity: 0.8;
+}
+
+.add-button {
+  --color: #ffffff;
+}
+
+.transparent-toolbar {
+  --background: rgba(255, 255, 255, 0.1);
+  --color: #ffffff;
+  backdrop-filter: blur(10px);
+}
+
+ion-fab {
+  --background: rgba(255, 107, 53, 0.9);
+  --background-activated: rgba(255, 107, 53, 1);
+}
+
+@media (max-width: 576px) {
+  .page-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .page-header {
+    padding: 25px 15px 15px;
+  }
+}

@@ -1,0 +1,55 @@
+// For information on how to create your own theme, please see:
+// http://ionicframework.com/docs/theming/
+
+/*
+	Paleta personalizada: Teal / Azul oscuro
+	Este archivo redefine las variables CSS que Ionic utiliza para colorear
+	la aplicación. No se cambia lógica alguna — sólo colores.
+*/
+
+:root {
+	/* Primary (teal) */
+	--ion-color-primary: #0ea5a4;
+	--ion-color-primary-contrast: #ffffff;
+	--ion-color-primary-shade: #0b8b89;
+	--ion-color-primary-tint: #24bdbb;
+
+	/* Secondary (azul) */
+	--ion-color-secondary: #2563eb;
+	--ion-color-secondary-contrast: #ffffff;
+	--ion-color-secondary-shade: #1f4fd6;
+	--ion-color-secondary-tint: #3b6ef0;
+
+	/* Tertiary (acento naranja) */
+	--ion-color-tertiary: #f59e0b;
+	--ion-color-tertiary-contrast: #0f172a;
+	--ion-color-tertiary-shade: #d28608;
+	--ion-color-tertiary-tint: #f7b84b;
+
+	/* Semantic colors */
+	--ion-color-success: #10b981;
+	--ion-color-success-contrast: #ffffff;
+
+	--ion-color-warning: #f59e0b;
+	--ion-color-warning-contrast: #0f172a;
+
+	--ion-color-danger: #ef4444;
+	--ion-color-danger-contrast: #ffffff;
+
+	/* Backgrounds & text */
+	--ion-background-color: #f8fafc;
+	--ion-text-color: #0f172a;
+
+	/* Toolbar / tabbar defaults */
+	--ion-toolbar-background: var(--ion-color-primary);
+	--ion-toolbar-text-color: var(--ion-color-primary-contrast);
+	--ion-tabbar-background: #ffffff;
+	--ion-tabbar-text-color: #475569;
+
+	/* Some helpful rgb vars used by Ionic components */
+	--ion-color-primary-rgb: 14,165,164;
+	--ion-color-secondary-rgb: 37,99,235;
+	--ion-color-tertiary-rgb: 245,158,11;
+	--ion-color-danger-rgb: 239,68,68;
+	--ion-color-success-rgb: 16,185,129;
+}

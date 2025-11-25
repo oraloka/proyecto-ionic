@@ -1,0 +1,139 @@
+<ion-header [translucent]="true" class="professional-header">
+  <ion-toolbar class="toolbar-modern">
+    <ion-title>Crear Cuenta</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="professional-register" [fullscreen]="true">
+  <div class="register-container">
+    <!-- Logo Section -->
+    <div class="logo-section">
+      <div class="logo-circle">
+        <ion-icon name="person-add-outline"></ion-icon>
+      </div>
+      <h1 class="app-title">Crear Cuenta</h1>
+      <p class="subtitle">Únete a nuestra comunidad hoy</p>
+    </div>
+
+    <!-- Registration Form -->
+    <form (ngSubmit)="onRegister()" class="register-form">
+      <!-- Name Field -->
+      <div class="form-group">
+        <div class="modern-input">
+          <ion-icon name="person-outline"></ion-icon>
+          <ion-input 
+            type="text" 
+            [(ngModel)]="name" 
+            name="name" 
+            placeholder="Nombre completo"
+            required>
+          </ion-input>
+        </div>
+      </div>
+
+      <!-- Email Field -->
+      <div class="form-group">
+        <div class="modern-input">
+          <ion-icon name="mail-outline"></ion-icon>
+          <ion-input 
+            type="email" 
+            [(ngModel)]="email" 
+            name="email" 
+            placeholder="correo@ejemplo.com"
+            required>
+          </ion-input>
+        </div>
+      </div>
+
+      <!-- Password Field -->
+      <div class="form-group">
+        <div class="modern-input">
+          <ion-icon name="lock-closed-outline"></ion-icon>
+          <ion-input 
+            [type]="showPassword ? 'text' : 'password'" 
+            [(ngModel)]="password" 
+            name="password" 
+            placeholder="Contraseña segura"
+            required>
+          </ion-input>
+          <ion-icon 
+            [name]="showPassword ? 'eye-off-outline' : 'eye-outline'"
+            (click)="togglePasswordVisibility()"
+            class="toggle-password">
+          </ion-icon>
+        </div>
+      </div>
+
+      <!-- Confirm Password Field -->
+      <div class="form-group">
+        <div class="modern-input">
+          <ion-icon name="lock-closed-outline"></ion-icon>
+          <ion-input 
+            [type]="showConfirmPassword ? 'text' : 'password'" 
+            [(ngModel)]="confirmPassword" 
+            name="confirmPassword" 
+            placeholder="Confirmar contraseña"
+            required>
+          </ion-input>
+          <ion-icon 
+            [name]="showConfirmPassword ? 'eye-off-outline' : 'eye-outline'"
+            (click)="toggleConfirmPasswordVisibility()"
+            class="toggle-password">
+          </ion-icon>
+        </div>
+      </div>
+
+      <!-- Terms Agreement -->
+      <div class="remember-section">
+        <ion-checkbox [(ngModel)]="termsAccepted" name="termsAccepted"></ion-checkbox>
+        <span class="remember-text">Acepto los términos y condiciones</span>
+      </div>
+
+      <!-- Register Button -->
+      <ion-button 
+        expand="block" 
+        type="submit" 
+        class="register-button"
+        [disabled]="!termsAccepted">
+        <span class="button-text">Crear Cuenta</span>
+        <ion-icon name="arrow-forward-outline" slot="end"></ion-icon>
+      </ion-button>
+    </form>
+
+    <!-- Divider -->
+    <div class="divider-section">
+      <div class="divider-line"></div>
+      <span class="divider-text">O continúa con</span>
+      <div class="divider-line"></div>
+    </div>
+
+    <!-- Social Registration -->
+    <div class="social-buttons">
+      <ion-button 
+        expand="block" 
+        class="social-button google-button"
+        (click)="onRegisterWithGoogle()">
+        <ion-icon name="logo-google" slot="start"></ion-icon>
+        Google
+      </ion-button>
+      <ion-button 
+        expand="block" 
+        class="social-button apple-button"
+        (click)="onRegisterWithApple()">
+        <ion-icon name="logo-apple" slot="start"></ion-icon>
+        Apple
+      </ion-button>
+    </div>
+
+    <!-- Sign In Section -->
+    <div class="signin-section">
+      <span class="signin-text">¿Ya tienes cuenta?</span>
+      <ion-button 
+        fill="clear" 
+        class="signin-link"
+        routerLink="/login">
+        Inicia sesión aquí
+      </ion-button>
+    </div>
+  </div>
+</ion-content>

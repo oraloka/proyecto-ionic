@@ -1,0 +1,28 @@
+{
+  "motorcycles": [
+    {
+      "id": 1,
+      "name": "Yamaha MT-09",
+      "brand": "Yamaha",
+      "year": 2013,
+      "description": "La Yamaha MT-09 es una motocicleta naked de alto rendimiento, conocida por su potente motor y su agilidad en curvas.",
+      "image": "https://i.pinimg.com/736x/15/ea/85/15ea8559f09428e1bcb7817b0418dfa7.jpg"
+    },
+    {
+      "id": 2,
+      "name": "Yamaha MT-07",
+      "brand": "Yamaha",
+      "year": 2018,
+      "description": "La Yamaha MT-07 es una motocicleta naked de 689cc con motor CP2 bicilíndrico en paralelo, perfecta para principiantes y expertos.",
+      "image": "https://fuelcarmagazine.com/wp-content/uploads/2024/10/Yamaha-MT-07-2025.jpg"
+    },
+    {
+      "id": 3,
+      "name": "Ducati Panigale V4",
+      "brand": "Ducati",
+      "year": 2022,
+      "description": "La Ducati Panigale V4 es una superbike italiana con motor V4 de 1103cc, diseñada para las pistas de carreras.",
+      "image": "https://images.ctfassets.net/x7j9qwvpvr5s/7EeW2rkgW6Afo7MbhqP4yj/fbaf2494b7672fb99c8baee44571596c/2025-04-18_Panigale-V4-Carbon-Trim-mosaic-780x430-00.jpg"
+    }
+  ]
+}

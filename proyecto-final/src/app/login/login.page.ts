@@ -1,0 +1,127 @@
+import { Component, OnInit, EnvironmentInjector, runInInjectionContext } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { IonicModule, ToastController } from '@ionic/angular';
+import { RouterModule } from '@angular/router';
+import { GoogleAuthProvider } from 'firebase/auth';
+import { Router } from '@angular/router';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+
+@Component({
+  selector: 'app-login',
+  standalone: true,
+  imports: [CommonModule, FormsModule, IonicModule, RouterModule],
+  templateUrl: './login.page.html',
+  styleUrls: ['./login.page.scss'],
+})
+export class LoginPage implements OnInit {
+
+  email: string = '';
+  password: string = '';
+  rememberMe: boolean = false;
+
+  constructor(
+    private router: Router,
+    private afAuth: AngularFireAuth,
+    private toastCtrl: ToastController,
+    private envInjector: EnvironmentInjector
+  ) { }
+
+  ngOnInit() {
+    // Recover remembered email if available
+    const remembered = localStorage.getItem('rememberMe_email');
+    if (remembered) {
+      this.email = remembered;
+      this.rememberMe = true;
+    }
+  }
+
+  isValidEmail(): boolean {
+    // Simple email regex validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(this.email);
+  }
+
+  async onLogin() {
+    // Validate email format
+    if (!this.isValidEmail()) {
+      const toast = await this.toastCtrl.create({
+        message: 'Ingresa un correo electrónico válido',
+        duration: 3000,
+        color: 'warning'
+      });
+      toast.present();
+      return;
+    }
+
+    // Remember email if checkbox is selected
+    if (this.rememberMe) {
+      localStorage.setItem('rememberMe_email', this.email);
+    } else {
+      localStorage.removeItem('rememberMe_email');
+    }
+
+    // Use Firebase Auth to sign in inside an injection context
+    try {
+      await runInInjectionContext(this.envInjector, async () => await this.afAuth.signInWithEmailAndPassword(this.email, this.password));
+      this.router.navigate(['/home']);
+    } catch (err: any) {
+      console.error('Login error', err);
+      if (err && err.code === 'auth/user-not-found') {
+        const toast = await this.toastCtrl.create({
+          message: 'No se encuentra un usuario con ese email',
+          duration: 3000,
+          color: 'danger'
+        });
+        toast.present();
+      } else {
+        const toast = await this.toastCtrl.create({
+          message: err.message || 'Error en el login',
+          duration: 3000,
+          color: 'danger'
+        });
+        toast.present();
+      }
+    }
+  }
+
+  async onLoginWithGoogle() {
+    try {
+      const provider = new GoogleAuthProvider();
+      // Ensure AngularFire runs inside an injection context to avoid NG0203
+      await runInInjectionContext(this.envInjector, async () => await this.afAuth.signInWithPopup(provider));
+      this.router.navigate(['/home']);
+    } catch (err: any) {
+      console.error('Google login error', err);
+      const toast = await this.toastCtrl.create({
+        message: err.message || 'Error con Google Sign-In',
+        duration: 3000,
+        color: 'danger'
+      });
+      toast.present();
+    }
+  }
+
+  async onLoginWithApple() {
+    try {
+      // Placeholder for Apple Sign-In
+      // Note: Apple Sign-In requires additional Firebase and Capacitor configuration
+      const toast = await this.toastCtrl.create({
+        message: 'Apple Sign-In no está disponible en este momento',
+        duration: 3000,
+        color: 'info'
+      });
+      toast.present();
+      console.info('Apple Sign-In not implemented yet');
+    } catch (err: any) {
+      console.error('Apple login error', err);
+      const toast = await this.toastCtrl.create({
+        message: err.message || 'Error con Apple Sign-In',
+        duration: 3000,
+        color: 'danger'
+      });
+      toast.present();
+    }
+  }
+
+}

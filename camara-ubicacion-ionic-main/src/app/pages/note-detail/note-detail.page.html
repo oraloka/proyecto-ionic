@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Detalle de Nota</ion-title>
+    <ion-buttons slot="end">
+      <ion-button color="danger" (click)="deleteNote()">
+        <ion-icon name="trash"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div *ngIf="note; else noNote">
+    <h2>{{ note.title }}</h2>
+    <p>{{ note.content }}</p>
+
+    <div *ngIf="note.photo">
+      <img [src]="note.photo" alt="Foto de la nota" style="max-width: 100%; border-radius: 8px;" />
+    </div>
+
+    <div *ngIf="note.latitude && note.longitude" class="location">
+      <p><strong>Ubicación:</strong></p>
+      <p>Lat: {{ note.latitude }} | Lng: {{ note.longitude }}</p>
+      <a [href]="'https://maps.google.com/?q=' + note.latitude + ',' + note.longitude" target="_blank">
+        Ver en Google Maps
+      </a>
+    </div>
+
+    <p><small>Creada: {{ note.createdAt | date:'medium' }}</small></p>
+  </div>
+
+  <ng-template #noNote>
+    <p>No se encontró la nota.</p>
+  </ng-template>
+</ion-content>

@@ -1,0 +1,72 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary" class="transparent-toolbar">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="fade-in-up">Motocicletas</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" routerLink="/pages/add-group" class="add-button">
+        <ion-icon name="add-circle" color="light"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="groups-content">
+  <div class="page-header fade-in-up">
+    <h1>🏍️ Mi Colección de Motocicletas</h1>
+    <p>Explora y administra tus motos favoritas</p>
+  </div>
+
+  <ion-list class="motorcycles-list">
+    <ion-card *ngFor="let motorcycle of motorcycles; let i = index" class="custom-card fade-in-up" [style.animation-delay.ms]="i * 50">
+      <div class="card-icons">
+        <ion-icon name="heart-outline" class="card-icon heart-icon"></ion-icon>
+        <ion-icon name="share-outline" class="card-icon share-icon"></ion-icon>
+      </div>
+      <ion-card-header>
+        <ion-card-title class="motorcycle-name">{{ motorcycle.name }}</ion-card-title>
+        <ion-card-subtitle class="motorcycle-info">
+          <ion-icon name="construct-outline"></ion-icon>
+          {{ motorcycle.brand }} • {{ motorcycle.year }}
+        </ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content *ngIf="motorcycle.description">
+        <p class="motorcycle-description">{{ motorcycle.description }}</p>
+      </ion-card-content>
+
+      <ion-card-content *ngIf="motorcycle.image">
+        <ion-img [src]="motorcycle.image" alt="{{ motorcycle.name }}" class="motorcycle-image"></ion-img>
+      </ion-card-content>
+
+      <ion-item lines="none" class="card-actions">
+        <ion-button fill="clear" color="primary" slot="start">
+          <ion-icon name="heart-outline" slot="icon-only"></ion-icon>
+        </ion-button>
+        <ion-button fill="clear" color="secondary" slot="start">
+          <ion-icon name="play-outline" slot="icon-only"></ion-icon>
+        </ion-button>
+        <ion-button fill="clear" color="tertiary" slot="end">
+          <ion-icon name="share-outline" slot="icon-only"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </ion-card>
+  </ion-list>
+
+  <div class="empty-state" *ngIf="motorcycles.length === 0">
+    <ion-icon name="construct-outline" size="large"></ion-icon>
+    <h3>Aún no tienes motocicletas</h3>
+    <p>¡Comienza agregando tu primera moto!</p>
+    <ion-button routerLink="/pages/add-group" color="primary" class="custom-button">
+      <ion-icon slot="start" name="add-circle"></ion-icon>
+      Agregar Primera Motocicleta
+    </ion-button>
+  </div>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button routerLink="/pages/add-group" color="primary">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

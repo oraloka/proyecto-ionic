@@ -1,0 +1,72 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary" class="transparent-toolbar">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="fade-in-up">Agregar Motocicleta</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="add-group-content">
+  <div class="form-container fade-in-up">
+    <div class="form-header">
+      <ion-icon name="construct" size="large" color="primary"></ion-icon>
+      <h2 class="shimmer">Nueva Motocicleta</h2>
+      <p>Completa la información de tu moto favorita</p>
+    </div>
+
+    <form class="motorcycle-form">
+      <ion-item class="custom-input">
+        <ion-label position="floating">
+          <ion-icon name="speedometer" slot="start"></ion-icon>
+          Nombre de la Motocicleta
+        </ion-label>
+        <ion-input [(ngModel)]="group.name" placeholder="Ej: Harley-Davidson Sportster" required></ion-input>
+      </ion-item>
+
+      <ion-item class="custom-input">
+        <ion-label position="floating">
+          <ion-icon name="business" slot="start"></ion-icon>
+          Marca
+        </ion-label>
+        <ion-input [(ngModel)]="group.brand" placeholder="Ej: Harley-Davidson" required></ion-input>
+      </ion-item>
+
+      <ion-item class="custom-input">
+        <ion-label position="floating">
+          <ion-icon name="calendar" slot="start"></ion-icon>
+          Año de Fabricación
+        </ion-label>
+        <ion-input type="number" [(ngModel)]="group.year" placeholder="Ej: 2020" min="1900" max="2025" required></ion-input>
+      </ion-item>
+
+      <ion-item class="custom-input">
+        <ion-label position="floating">
+          <ion-icon name="document-text" slot="start"></ion-icon>
+          Descripción (Opcional)
+        </ion-label>
+        <ion-textarea [(ngModel)]="group.description" placeholder="Breve descripción de la motocicleta..." rows="3"></ion-textarea>
+      </ion-item>
+
+      <ion-item class="custom-input">
+        <ion-label position="floating">
+          <ion-icon name="image" slot="start"></ion-icon>
+          URL de Imagen (Opcional)
+        </ion-label>
+        <ion-input [(ngModel)]="group.image" placeholder="https://ejemplo.com/imagen.jpg" type="url"></ion-input>
+      </ion-item>
+
+      <div class="button-container">
+        <ion-button expand="full" color="success" class="custom-button save-button" (click)="addGroup()">
+          <ion-icon slot="start" name="checkmark-circle"></ion-icon>
+          Guardar Motocicleta
+        </ion-button>
+
+        <ion-button expand="full" fill="outline" color="medium" class="custom-button cancel-button" routerLink="/home">
+          <ion-icon slot="start" name="close-circle"></ion-icon>
+          Cancelar
+        </ion-button>
+      </div>
+    </form>
+  </div>
+</ion-content>

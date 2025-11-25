@@ -1,0 +1,445 @@
+$primary-color: #0f1419;
+$secondary-color: #1a2332;
+$accent-color: #6366f1;
+$accent-light: #e0e7ff;
+$text-dark: #0f1419;
+$text-light: #5a6b7a;
+$text-muted: #8a97a8;
+$border-color: #e2e8f0;
+$success-color: #10b981;
+$error-color: #ef4444;
+$background-light: #f8fafc;
+$background-white: #ffffff;
+
+// Spacing & Typography
+$spacing-unit: 1rem;
+$border-radius: 12px;
+$border-radius-lg: 16px;
+$transition-speed: 0.3s;
+
+// Header
+.professional-header {
+  --background: #{$background-white};
+  --border-bottom: 1px solid #{$border-color};
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.toolbar-modern {
+  --padding-start: #{$spacing-unit};
+  --padding-end: #{$spacing-unit};
+}
+
+// Main Container - Centered layout with max-width
+.professional-login {
+  --background: linear-gradient(135deg, #{$background-light} 0%, #{$background-white} 100%);
+  --overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 420px;
+  padding: 2rem 1.5rem;
+  align-items: center;
+}
+
+// Logo Section - Perfect centering and symmetry
+.logo-section {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.logo-circle {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(135deg, #{$accent-color} 0%, #4f46e5 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 12px 32px rgba(99, 102, 241, 0.25);
+  animation: slideDown 0.6s ease-out;
+
+  ion-icon {
+    font-size: 40px;
+    color: white;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.app-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #{$text-dark};
+  margin: 0 0 0.5rem 0;
+  letter-spacing: -0.5px;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #{$text-light};
+  margin: 0;
+  font-weight: 400;
+}
+
+// Form - Full width for symmetry
+.login-form {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+// Modern Input Styling
+.modern-input {
+  --background: #{$background-white};
+  --border-radius: #{$border-radius};
+  --border-bottom: none;
+  --padding-start: 1.25rem;
+  --padding-end: 1.25rem;
+  --min-height: 52px;
+  border: 1px solid #{$border-color};
+  border-radius: #{$border-radius};
+  background: #{$background-white};
+  transition: all $transition-speed ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+
+  &:focus-within {
+    border-color: #{$accent-color};
+    box-shadow: 0 0 0 3px #{$accent-light}, 0 2px 6px rgba(0, 0, 0, 0.04);
+    --color: #{$text-dark};
+  }
+
+  ion-icon {
+    color: #{$text-muted};
+    font-size: 20px;
+    margin-right: 0.75rem;
+    transition: color $transition-speed ease;
+  }
+
+  &:focus-within ion-icon {
+    color: #{$accent-color};
+  }
+
+  ion-input {
+    --padding-start: 0;
+    --padding-end: 0;
+    font-size: 16px;
+    color: #{$text-dark};
+
+    &::placeholder {
+      color: #{$text-muted};
+    }
+  }
+}
+
+// Error Message
+.error-message {
+  font-size: 12px;
+  color: #{$error-color};
+  padding: 0 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+// Forgot Password
+.forgot-password {
+  padding: 0 0.5rem;
+
+  ion-button {
+    --color: #{$accent-color};
+    --padding-start: 0;
+    --padding-end: 0;
+    font-size: 13px;
+    text-decoration: none;
+    font-weight: 500;
+
+    &:hover {
+      --color: #4f46e5;
+    }
+  }
+}
+
+// Remember Me
+.remember-section {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0 0.5rem;
+  justify-content: center;
+
+  ion-checkbox {
+    --size: 20px;
+    --border-radius: 4px;
+  }
+
+  .remember-text {
+    font-size: 14px;
+    color: #{$text-dark};
+    font-weight: 500;
+  }
+}
+
+// Login Button
+.login-button {
+  --background: linear-gradient(135deg, #{$accent-color} 0%, #4f46e5 100%);
+  --color: white;
+  --padding-start: 1.5rem;
+  --padding-end: 1.5rem;
+  --min-height: 52px;
+  --border-radius: #{$border-radius};
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  text-transform: none;
+  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
+  transition: all $transition-speed ease;
+
+  .button-text {
+    margin-right: 0.5rem;
+  }
+
+  &:hover:not([disabled]) {
+    box-shadow: 0 12px 30px rgba(99, 102, 241, 0.4);
+    transform: translateY(-2px);
+  }
+
+  &[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  ion-icon {
+    font-size: 18px;
+  }
+}
+
+// Divider
+.divider-section {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1rem 0;
+  width: 100%;
+
+  .divider-line {
+    flex: 1;
+    height: 1px;
+    background: #{$border-color};
+  }
+
+  .divider-text {
+    font-size: 13px;
+    color: #{$text-muted};
+    font-weight: 500;
+    white-space: nowrap;
+  }
+}
+
+// Social Buttons - Symmetric layout
+.social-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  width: 100%;
+}
+
+.social-button {
+  --background: #{$background-white};
+  --color: #{$text-dark};
+  --padding-start: 1rem;
+  --padding-end: 1rem;
+  --min-height: 48px;
+  --border-radius: #{$border-radius};
+  border: 1.5px solid #{$border-color};
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: none;
+  transition: all $transition-speed ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+
+  &:hover {
+    border-color: #{$accent-color};
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
+  }
+
+  ion-icon {
+    font-size: 20px;
+    margin-right: 0.5rem;
+  }
+
+  &.google-button {
+    --color: #1f2937;
+
+    ion-icon {
+      color: #1f2937;
+    }
+  }
+
+  &.apple-button {
+    --color: #000;
+
+    ion-icon {
+      color: #000;
+    }
+  }
+}
+
+// Sign Up Section - Centered
+.signup-section {
+  text-align: center;
+  padding-top: 1.5rem;
+  border-top: 1px solid #{$border-color};
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  width: 100%;
+
+  .signup-text {
+    font-size: 14px;
+    color: #{$text-light};
+  }
+
+  .signup-link {
+    --color: #{$accent-color};
+    --padding-start: 0;
+    --padding-end: 0;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+
+    &:hover {
+      --color: #4f46e5;
+      text-decoration: underline;
+    }
+  }
+}
+
+// Responsive Design
+@media (min-width: 768px) {
+  .login-container {
+    padding: 3rem 2rem;
+    max-width: 450px;
+  }
+
+  .logo-circle {
+    width: 100px;
+    height: 100px;
+
+    ion-icon {
+      font-size: 50px;
+    }
+  }
+
+  .app-title {
+    font-size: 32px;
+  }
+
+  .login-form {
+    gap: 1.75rem;
+  }
+
+  .modern-input {
+    --min-height: 56px;
+  }
+
+  .login-button {
+    --min-height: 56px;
+    font-size: 17px;
+  }
+}
+
+// Dark Mode Support
+:host-context(.dark) {
+  .professional-login {
+    --background: linear-gradient(135deg, #{$secondary-color} 0%, #{$primary-color} 100%);
+  }
+
+  .app-title {
+    color: #{$accent-light};
+  }
+
+  .subtitle,
+  .remember-text,
+  .error-message {
+    color: #{$text-muted};
+  }
+
+  .modern-input {
+    --background: #{$secondary-color};
+    --color: #{$accent-light};
+    border-color: #2d3e4e;
+
+    &:focus-within {
+      border-color: #{$accent-color};
+    }
+
+    ion-input::placeholder {
+      color: #{$text-muted};
+    }
+  }
+
+  .divider-line,
+  .signup-section {
+    border-color: #2d3e4e;
+  }
+
+  .divider-text,
+  .signup-text {
+    color: #{$text-muted};
+  }
+
+  .social-button {
+    --background: #{$secondary-color};
+    --color: #{$accent-light};
+    border-color: #2d3e4e;
+
+    &:hover {
+      border-color: #{$accent-color};
+    }
+  }
+}
+
+// Animations
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.login-form {
+  animation: fadeIn 0.5s ease-out 0.2s both;
+}

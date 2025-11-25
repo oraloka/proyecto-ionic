@@ -1,0 +1,73 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Home</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding" [fullscreen]="true">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Bienvenido</ion-card-title>
+      <ion-card-subtitle>Mi App Ionic</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      Esta es la pantalla principal. Agrega aquí el contenido de tu app.
+    </ion-card-content>
+  </ion-card>
+  <!-- Student registration form -->
+  <form (ngSubmit)="createStudent($event)">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="4">
+          <ion-item>
+            <ion-input placeholder="Nombre" [(ngModel)]="name" name="name"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="2">
+          <ion-item>
+            <ion-input type="number" placeholder="Años" [(ngModel)]="age" name="age"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="6">
+          <ion-item>
+            <ion-input placeholder="Direccion" [(ngModel)]="address" name="address"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-button expand="block" color="primary" type="submit" [disabled]="saving">
+            <ion-icon slot="start" name="add-circle-outline"></ion-icon>
+            <span *ngIf="!saving">+ Crear registro</span>
+            <ion-spinner *ngIf="saving" name="crescent"></ion-spinner>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+
+  <!-- Students list -->
+  <div *ngIf="students.length === 0" class="ion-padding">No hay registros aún.</div>
+  <ion-list>
+    <ion-card *ngFor="let s of students">
+      <ion-card-content>
+        <h3>{{s.name}} de {{s.age}} Años</h3>
+        <p>Direccion: {{s.address}}</p>
+        <ion-button fill="clear" color="primary" size="small" (click)="editStudent(s)">
+          <ion-icon slot="icon-only" name="pencil"></ion-icon>
+        </ion-button>
+        <ion-button fill="clear" color="danger" size="small" (click)="deleteStudent(s.id)">
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+
+  <ion-list>
+    <ion-item button routerLink="/settings">
+      <ion-label>Settings</ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-button expand="block" color="medium" (click)="onLogout()">Cerrar sesión</ion-button>
+</ion-content>

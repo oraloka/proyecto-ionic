@@ -1,0 +1,7 @@
+{
+  "name": "contactos-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}

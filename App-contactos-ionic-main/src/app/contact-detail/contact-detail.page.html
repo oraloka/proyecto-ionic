@@ -1,0 +1,47 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Detalle del Contacto</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="editContact()" aria-label="Editar contacto">
+        <ion-icon name="create" slot="icon-only"></ion-icon>
+      </ion-button>
+      <ion-button fill="clear" (click)="deleteContact()" color="danger" aria-label="Eliminar contacto">
+        <ion-icon name="trash" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Detalle del Contacto</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="contact-detail-container" *ngIf="contact">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>{{ contact.name }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p *ngIf="contact.apellido"><strong>Apellido:</strong> {{ contact.apellido }}</p>
+        <p><strong>Teléfono:</strong> {{ contact.phone }}</p>
+        <p *ngIf="contact.email"><strong>Email:</strong> {{ contact.email }}</p>
+        <p *ngIf="!contact.email"><em>Sin email registrado</em></p>
+        <p *ngIf="contact.nota"><strong>Nota:</strong> {{ contact.nota }}</p>
+        <p *ngIf="!contact.nota"><em>Sin nota registrada</em></p>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <div class="contact-not-found" *ngIf="!contact">
+    <ion-text color="medium">
+      <h2>Contacto no encontrado</h2>
+      <p>El contacto que buscas no existe o ha sido eliminado.</p>
+    </ion-text>
+  </div>
+</ion-content>

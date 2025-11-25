@@ -1,0 +1,106 @@
+#container {
+  text-align: center;
+
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#container strong {
+  font-size: 20px;
+  line-height: 26px;
+}
+
+#container p {
+  font-size: 16px;
+  line-height: 22px;
+
+  color: #8c8c8c;
+
+  margin: 0;
+}
+
+#container a {
+  text-decoration: none;
+}
+ion-fab {
+  margin: 20px;
+}
+ion-item {
+  ion-buttons {
+    visibility: visible !important; // Fuerza la visibilidad
+    display: flex !important;
+    gap: 8px;
+    position: relative !important;
+    z-index: 10 !important;
+  }
+
+  ion-button {
+    opacity: 1 !important;
+    background: linear-gradient(135deg, var(--ion-color-primary) 0%, var(--ion-color-primary-shade) 100%) !important;
+    color: white !important;
+    border: 2px solid rgba(255, 255, 255, 0.3) !important;
+    border-radius: 50% !important; // Circular buttons for icon-only
+    padding: 12px !important;
+    min-width: 48px !important;
+    min-height: 48px !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+    position: relative !important;
+    overflow: visible !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    z-index: 11 !important;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      transition: left 0.5s;
+      border-radius: 50%;
+      z-index: 1;
+    }
+
+    &:hover {
+      transform: translateY(-3px) scale(1.05) !important;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25), 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+      border-color: rgba(255, 255, 255, 0.5) !important;
+
+      &::before {
+        left: 100%;
+      }
+    }
+
+    &:active {
+      transform: translateY(-1px) scale(0.95) !important;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+    }
+
+    &:focus {
+      outline: 3px solid rgba(255, 255, 255, 0.7) !important;
+      outline-offset: 2px !important;
+    }
+
+    ion-icon {
+      font-size: 24px !important; // Increased size for better visibility
+      margin: 0 !important;
+      display: block !important; // Ensure icon is displayed
+      position: relative !important;
+      z-index: 12 !important;
+      color: white !important;
+      width: 24px !important;
+      height: 24px !important;
+    }
+
+    &[color="danger"] {
+      background: linear-gradient(135deg, var(--ion-color-danger) 0%, var(--ion-color-danger-shade) 100%) !important;
+    }
+  }
+}

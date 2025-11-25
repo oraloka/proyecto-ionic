@@ -1,0 +1,14 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Nueva Nota</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-input [(ngModel)]="title" placeholder="Título"></ion-input>
+  <ion-textarea [(ngModel)]="content" placeholder="Contenido"></ion-textarea>
+  
+  <ion-button expand="block" (click)="takePhoto()">Tomar Foto</ion-button>
+  <ion-button expand="block" (click)="getLocation()">Obtener Ubicación</ion-button>
+  <ion-button expand="block" (click)="saveNote()">Guardar</ion-button>
+</ion-content>

@@ -1,0 +1,210 @@
+<ion-header [translucent]="true" class="professional-header">
+  <ion-toolbar class="toolbar-modern">
+    <ion-title class="header-title">Panel Principal</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/settings" class="settings-button">
+        <ion-icon slot="icon-only" name="settings"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="professional-home" [fullscreen]="true">
+  <!-- Redesigned content wrapper with centered, symmetric layout -->
+  <div class="content-wrapper">
+    <!-- Resumen de producción mensual -->
+    <ion-card class="modern-card summary-card">
+      <ion-card-header class="card-header">
+        <ion-card-title class="card-title">Resumen de Producción</ion-card-title>
+        <ion-card-subtitle class="card-subtitle">Últimos 12 meses</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="6">
+              <div class="stat-item">
+                <p class="stat-label">Total Producción (kg/l)</p>
+                <h3 class="stat-value">{{totalProduction | number:'1.0-0'}}</h3>
+              </div>
+            </ion-col>
+            <ion-col size="6">
+              <div class="stat-item">
+                <p class="stat-label">Ingresos Generados</p>
+                <h3 class="stat-value">${{totalIncome | number:'1.0-2'}}</h3>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6">
+              <div class="stat-item">
+                <p class="stat-label">Costo Operativo</p>
+                <h3 class="stat-value">${{totalCost | number:'1.0-2'}}</h3>
+              </div>
+            </ion-col>
+            <ion-col size="6">
+              <div class="stat-item">
+                <p class="stat-label">Ganancia Neta</p>
+                <h3 class="stat-value">${{netProfit | number:'1.0-2'}}</h3>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Gráfica de productividad por mes -->
+    <ion-card class="modern-card chart-card">
+      <ion-card-header class="card-header">
+        <ion-card-title class="card-title">Productividad por Mes</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="chart-container">
+          <canvas #productionChart></canvas>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Filtrado y búsqueda -->
+    <ion-card class="modern-card filter-card">
+      <ion-card-header class="card-header">
+        <ion-card-title class="card-title">Filtros</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="12" sizeMd="6">
+              <ion-item class="modern-item">
+                <ion-label>Desde</ion-label>
+                <ion-input type="date" [(ngModel)]="filterStartDate" name="filterStartDate" (ionChange)="applyFilters()"></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col size="12" sizeMd="6">
+              <ion-item class="modern-item">
+                <ion-label>Hasta</ion-label>
+                <ion-input type="date" [(ngModel)]="filterEndDate" name="filterEndDate" (ionChange)="applyFilters()"></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12">
+              <ion-item class="modern-item">
+                <ion-label>Tipo de Producto</ion-label>
+                <ion-select [(ngModel)]="filterProductType" name="filterProductType" (ionChange)="applyFilters()" cancelText="Cancelar" okText="OK">
+                  <ion-select-option value="">Todos</ion-select-option>
+                  <ion-select-option value="Maíz">Maíz</ion-select-option>
+                  <ion-select-option value="Trigo">Trigo</ion-select-option>
+                  <ion-select-option value="Soja">Soja</ion-select-option>
+                  <ion-select-option value="Cebada">Cebada</ion-select-option>
+                  <ion-select-option value="Otro">Otro</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Módulo de Registro de Producción -->
+    <ion-card class="modern-card registration-card">
+      <ion-card-header class="card-header">
+        <ion-card-title class="card-title">Nuevo Registro de Producción</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <form (ngSubmit)="addProduction($event)">
+          <ion-grid>
+            <ion-row>
+              <ion-col size="12" sizeMd="6">
+                <ion-item class="modern-item">
+                  <ion-label position="floating">Fecha de Producción</ion-label>
+                  <ion-input type="date" [(ngModel)]="newProduction.date" name="date" required></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12" sizeMd="6">
+                <ion-item class="modern-item">
+                  <ion-label position="floating">Tipo de Cultivo / Producto</ion-label>
+                  <ion-select [(ngModel)]="newProduction.productType" name="productType" required cancelText="Cancelar" okText="OK">
+                    <ion-select-option value="Maíz">Maíz</ion-select-option>
+                    <ion-select-option value="Trigo">Trigo</ion-select-option>
+                    <ion-select-option value="Soja">Soja</ion-select-option>
+                    <ion-select-option value="Cebada">Cebada</ion-select-option>
+                    <ion-select-option value="Otro">Otro</ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col size="12" sizeMd="6">
+                <ion-item class="modern-item">
+                  <ion-label position="floating">Cantidad (kg o litros)</ion-label>
+                  <ion-input type="number" [(ngModel)]="newProduction.quantity" name="quantity" placeholder="0" required></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12" sizeMd="6">
+                <ion-item class="modern-item">
+                  <ion-label position="floating">Costo Operativo ($)</ion-label>
+                  <ion-input type="number" [(ngModel)]="newProduction.cost" name="cost" placeholder="0.00" required></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col size="12" sizeMd="12">
+                <ion-item class="modern-item">
+                  <ion-label position="floating">Ingresos Generados ($)</ion-label>
+                  <ion-input type="number" [(ngModel)]="newProduction.income" name="income" placeholder="0.00" required></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col>
+                <ion-button expand="block" class="modern-button" type="submit" [disabled]="saving">
+                  <ion-icon slot="start" name="add-circle-outline"></ion-icon>
+                  <span *ngIf="!saving">+ Registrar Producción</span>
+                  <ion-spinner *ngIf="saving" name="crescent"></ion-spinner>
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </form>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Listado de Producciones -->
+    <ion-card class="modern-card records-card">
+      <ion-card-header class="card-header">
+        <ion-card-title class="card-title">Registros de Producción ({{filteredProductions.length}})</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div *ngIf="filteredProductions.length === 0" class="no-records">
+          <ion-icon name="leaf"></ion-icon>
+          <p>No hay registros que coincidan con los filtros.</p>
+        </div>
+        <ion-list *ngIf="filteredProductions.length > 0">
+          <ion-item-sliding *ngFor="let prod of filteredProductions">
+            <ion-item class="production-item">
+              <ion-icon slot="start" name="leaf" color="primary"></ion-icon>
+              <ion-label>
+                <h3><strong>{{prod.productType}}</strong></h3>
+                <p>{{prod.date | date:'short'}} • {{prod.quantity}} kg/l</p>
+                <p class="income-text">Ingresos: ${{prod.income | number:'1.0-2'}} | Costo: ${{prod.cost | number:'1.0-2'}} | Ganancia: ${{(prod.income - prod.cost) | number:'1.0-2'}}</p>
+              </ion-label>
+            </ion-item>
+            <ion-item-options side="end">
+              <ion-item-option color="danger" (click)="deleteProduction(prod.id)">
+                <ion-icon slot="icon-only" name="trash"></ion-icon>
+              </ion-item-option>
+            </ion-item-options>
+          </ion-item-sliding>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Logout Button -->
+    <ion-button expand="block" class="logout-button" (click)="onLogout()">
+      <ion-icon slot="start" name="log-out"></ion-icon>
+      Cerrar sesión
+    </ion-button>
+  </div>
+</ion-content>

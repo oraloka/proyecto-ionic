@@ -1,0 +1,7 @@
+{
+  "name": "notas-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

@@ -1,0 +1,112 @@
+.add-group-content {
+  --background: transparent;
+  background: linear-gradient(135deg, rgba(255, 107, 53, 0.1) 0%, rgba(247, 147, 30, 0.1) 50%, rgba(45, 90, 160, 0.1) 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.form-container {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  padding: 30px;
+  margin: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  width: 100%;
+}
+
+.form-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.form-header ion-icon {
+  font-size: 3rem;
+  margin-bottom: 15px;
+}
+
+.form-header h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--ion-color-primary);
+  margin-bottom: 8px;
+}
+
+.form-header p {
+  color: var(--ion-color-medium);
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.motorcycle-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.custom-input {
+  --border-radius: 12px;
+  --padding-start: 16px;
+  --inner-padding-end: 16px;
+  --border-color: rgba(0, 0, 0, 0.1);
+  --background: rgba(255, 255, 255, 0.8);
+  transition: all 0.3s ease;
+}
+
+.custom-input:focus-within {
+  --border-color: var(--ion-color-primary);
+  --border-width: 2px;
+  box-shadow: 0 0 0 4px rgba(255, 107, 53, 0.1);
+}
+
+.custom-input ion-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  color: var(--ion-color-dark);
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.save-button {
+  --border-radius: 25px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  height: 50px;
+}
+
+.cancel-button {
+  --border-radius: 25px;
+  font-size: 1rem;
+  height: 45px;
+}
+
+.transparent-toolbar {
+  --background: rgba(255, 255, 255, 0.1);
+  --color: #ffffff;
+  backdrop-filter: blur(10px);
+}
+
+@media (max-width: 576px) {
+  .form-container {
+    padding: 20px;
+    margin: 10px;
+  }
+
+  .form-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .button-container {
+    gap: 10px;
+  }
+}

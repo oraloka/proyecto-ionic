@@ -1,0 +1,442 @@
+$primary-color: #0f1419;
+$secondary-color: #1a2332;
+$accent-color: #6366f1;
+$accent-light: #e0e7ff;
+$text-dark: #0f1419;
+$text-light: #5a6b7a;
+$text-muted: #8a97a8;
+$border-color: #e2e8f0;
+$success-color: #10b981;
+$error-color: #ef4444;
+$background-light: #f8fafc;
+$background-white: #ffffff;
+
+// Spacing & Typography
+$spacing-unit: 1rem;
+$border-radius: 12px;
+$border-radius-lg: 16px;
+$transition-speed: 0.3s;
+
+// Header
+.professional-header {
+  --background: #{$background-white};
+  --border-bottom: 1px solid #{$border-color};
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.toolbar-modern {
+  --padding-start: #{$spacing-unit};
+  --padding-end: #{$spacing-unit};
+  --min-height: 56px;
+}
+
+.header-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #{$text-dark};
+}
+
+.settings-button {
+  --color: #{$accent-color};
+  --padding-start: 0.5rem;
+  --padding-end: 0.5rem;
+  transition: all $transition-speed ease;
+
+  &:hover {
+    transform: rotate(20deg);
+  }
+}
+
+// Main Content - Improved spacing and symmetry
+.professional-home {
+  --background: linear-gradient(135deg, #{$background-light} 0%, #{$background-white} 100%);
+}
+
+.content-wrapper {
+  padding: 1.5rem 1rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+// Modern Card Styling - Enhanced shadows and hover effects
+.modern-card {
+  --background: #{$background-white};
+  --box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  border-radius: #{$border-radius-lg};
+  margin-bottom: 1.5rem;
+  border: 1px solid #{$border-color};
+  transition: all $transition-speed ease;
+
+  &:hover {
+    --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
+}
+
+.card-header {
+  --padding-start: 1.5rem;
+  --padding-end: 1.5rem;
+  --padding-top: 1.5rem;
+  --padding-bottom: 1rem;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(99, 102, 241, 0) 100%);
+  border-bottom: 1px solid #{$border-color};
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #{$text-dark};
+  margin: 0;
+  letter-spacing: -0.3px;
+}
+
+.card-subtitle {
+  font-size: 13px;
+  color: #{$text-muted};
+  margin-top: 0.5rem;
+  font-weight: 500;
+}
+
+// Stat Items - Better symmetry
+.stat-item {
+  text-align: center;
+  padding: 1.5rem 0;
+  border-right: 1px solid #{$border-color};
+
+  &:nth-child(even) {
+    border-right: none;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: #{$text-muted};
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .stat-value {
+    font-size: 24px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #{$accent-color} 0%, #4f46e5 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 0;
+  }
+}
+
+// Chart Card
+.chart-card {
+  .chart-container {
+    position: relative;
+    height: 300px;
+  }
+}
+
+// Filter Card - Subtle background gradient
+.filter-card {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(99, 102, 241, 0.02) 100%);
+
+  .card-header {
+    background: transparent;
+  }
+}
+
+// Modern Items
+.modern-item {
+  --background: rgba(255, 255, 255, 0.5);
+  --border-bottom: none;
+  --padding-start: 0;
+  --padding-end: 0;
+  margin-bottom: 1rem;
+  border-radius: #{$border-radius};
+  border: 1px solid #{$border-color};
+  background: #{$background-white};
+  transition: all $transition-speed ease;
+
+  &:focus-within {
+    border-color: #{$accent-color};
+    box-shadow: 0 0 0 3px #{$accent-light};
+  }
+
+  ion-label {
+    color: #{$text-dark};
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  ion-input,
+  ion-select {
+    --padding-start: 1rem;
+    --padding-end: 1rem;
+    --padding-top: 0.75rem;
+    --padding-bottom: 0.75rem;
+    color: #{$text-dark};
+    font-size: 15px;
+  }
+}
+
+// Registration Card
+.registration-card {
+  ion-item {
+    --background: rgba(255, 255, 255, 0.5);
+  }
+}
+
+// Modern Button
+.modern-button {
+  --background: linear-gradient(135deg, #{$accent-color} 0%, #4f46e5 100%);
+  --color: white;
+  --padding-start: 1.5rem;
+  --padding-end: 1.5rem;
+  --min-height: 48px;
+  --border-radius: #{$border-radius};
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  text-transform: none;
+  box-shadow: 0 6px 16px rgba(99, 102, 241, 0.25);
+  transition: all $transition-speed ease;
+  margin-top: 1rem;
+
+  &:hover:not([disabled]) {
+    box-shadow: 0 10px 24px rgba(99, 102, 241, 0.35);
+    transform: translateY(-2px);
+  }
+
+  &[disabled] {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  ion-icon {
+    font-size: 18px;
+    margin-right: 0.5rem;
+  }
+}
+
+// Records Card
+.production-item {
+  --background: #fafafa;
+  --padding-start: 0;
+  border-bottom: 1px solid #{$border-color};
+  transition: background-color $transition-speed ease;
+
+  &:hover {
+    --background: #f0f0f0;
+  }
+
+  h3 {
+    color: #{$accent-color};
+    margin-bottom: 0.5rem;
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  p {
+    font-size: 13px;
+    color: #{$text-light};
+    margin: 0.25rem 0;
+
+    &.income-text {
+      font-size: 12px;
+      color: #{$success-color};
+      font-weight: 600;
+    }
+  }
+
+  ion-icon {
+    color: #{$accent-color};
+    margin-right: 1rem;
+  }
+}
+
+.no-records {
+  text-align: center;
+  padding: 3rem 1.5rem;
+  color: #{$text-muted};
+
+  ion-icon {
+    font-size: 48px;
+    margin-bottom: 1rem;
+    color: #{$accent-color};
+    opacity: 0.4;
+  }
+
+  p {
+    font-size: 14px;
+  }
+}
+
+// Logout Button
+.logout-button {
+  --background: linear-gradient(135deg, #{$error-color} 0%, #dc2626 100%);
+  --color: white;
+  --padding-start: 1.5rem;
+  --padding-end: 1.5rem;
+  --min-height: 48px;
+  --border-radius: #{$border-radius};
+  font-size: 15px;
+  font-weight: 600;
+  text-transform: none;
+  box-shadow: 0 6px 16px rgba(239, 68, 68, 0.2);
+  transition: all $transition-speed ease;
+  margin-top: 2rem;
+
+  &:hover {
+    box-shadow: 0 10px 24px rgba(239, 68, 68, 0.3);
+    transform: translateY(-2px);
+  }
+
+  ion-icon {
+    font-size: 18px;
+    margin-right: 0.5rem;
+  }
+}
+
+// Responsive Design
+@media (max-width: 576px) {
+  .content-wrapper {
+    padding: 1rem 0.75rem;
+  }
+
+  .stat-item {
+    padding: 1rem 0;
+
+    .stat-value {
+      font-size: 20px;
+    }
+  }
+
+  .chart-container {
+    height: 250px !important;
+  }
+
+  .header-title {
+    font-size: 18px;
+  }
+}
+
+@media (min-width: 768px) {
+  .content-wrapper {
+    padding: 2rem 1.5rem;
+  }
+
+  .card-header {
+    --padding-start: 2rem;
+    --padding-end: 2rem;
+  }
+
+  .stat-item {
+    padding: 2rem 1rem;
+  }
+
+  .chart-container {
+    height: 350px !important;
+  }
+}
+
+// Dark Mode Support
+:host-context(.dark) {
+  .professional-header {
+    --background: #{$secondary-color};
+    --border-bottom: 1px solid #2d3e4e;
+  }
+
+  .professional-home {
+    --background: linear-gradient(135deg, #{$secondary-color} 0%, #{$primary-color} 100%);
+  }
+
+  .modern-card {
+    --background: #{$secondary-color};
+    border-color: #2d3e4e;
+
+    &:hover {
+      --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+  }
+
+  .card-header {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(99, 102, 241, 0) 100%);
+    border-bottom-color: #2d3e4e;
+  }
+
+  .card-title,
+  .header-title {
+    color: #{$accent-light};
+  }
+
+  .card-subtitle {
+    color: #{$text-muted};
+  }
+
+  .stat-item {
+    border-right-color: #2d3e4e;
+  }
+
+  .modern-item {
+    --background: #{$secondary-color};
+    border-color: #2d3e4e;
+    background: #{$secondary-color};
+
+    ion-label {
+      color: #{$accent-light};
+    }
+
+    ion-input,
+    ion-select {
+      color: #{$accent-light};
+
+      &::placeholder {
+        color: #{$text-muted};
+      }
+    }
+
+    &:focus-within {
+      border-color: #{$accent-color};
+    }
+  }
+
+  .production-item {
+    --background: #{$secondary-color};
+    border-bottom-color: #2d3e4e;
+
+    &:hover {
+      --background: #252f3d;
+    }
+
+    h3 {
+      color: #{$accent-color};
+    }
+
+    p {
+      color: #{$text-muted};
+    }
+  }
+
+  .no-records {
+    color: #{$text-muted};
+  }
+}
+
+// Smooth Animations
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modern-card {
+  animation: slideIn 0.4s ease-out;
+
+  &:nth-child(n) {
+    animation-delay: calc(0.1s * var(--item-index, 1));
+  }
+}
