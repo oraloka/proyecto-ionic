@@ -29,6 +29,11 @@
     Mis Solicitudes
   </ion-button>
 
+  <ion-button expand="block" color="tertiary" (click)="toggleEditProfile()" *ngIf="!isEditingProfile">
+    <ion-icon slot="start" name="create"></ion-icon>
+    Editar Perfil
+  </ion-button>
+
   <ion-card>
     <ion-card-header>
       <ion-card-title>Mi Perfil</ion-card-title>
