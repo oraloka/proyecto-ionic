@@ -14,6 +14,7 @@ import { ToastController } from '@ionic/angular';
 export class AdminDashboardPage implements OnInit {
   results: any[] = [];
   filters: any = { type: '', placa: '', cedula: '' };
+  selectedRequest: any = null;
 
   constructor(private req: RequestService, private email: EmailService, private auth: AuthService, private router: Router, private toast: ToastController) {}
 
@@ -56,5 +57,13 @@ export class AdminDashboardPage implements OnInit {
   logout() {
     this.auth.logout();
     this.router.navigate(['/login-select']);
+  }
+
+  viewDetails(r: any) {
+    this.selectedRequest = r;
+  }
+
+  closeDetails() {
+    this.selectedRequest = null;
   }
 }

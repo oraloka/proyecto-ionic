@@ -35,6 +35,14 @@
           <ion-input type="number" [(ngModel)]="form.year" name="year" required></ion-input>
         </ion-item>
         <ion-item>
+          <ion-label position="stacked">Fecha en la que traeré el vehículo</ion-label>
+          <ion-datetime display-format="DD MMM YYYY" picker-format="DD MMM YYYY" [(ngModel)]="form.pickupDate" name="pickupDate" placeholder="Selecciona fecha" required></ion-datetime>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Cédula</ion-label>
+          <ion-input [(ngModel)]="form.cedula" name="cedula" placeholder="Tu cédula" required></ion-input>
+        </ion-item>
+        <ion-item>
           <ion-label position="stacked">Tipo de Vehículo</ion-label>
           <ion-select [(ngModel)]="form.vehicleType" name="vehicleType" required>
             <ion-select-option value="sedan">Sedán</ion-select-option>

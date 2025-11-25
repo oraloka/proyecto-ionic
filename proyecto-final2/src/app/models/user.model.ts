@@ -27,6 +27,7 @@ export interface MaintenanceRequest {
   year: number;
   maintenanceTypes: string[]; // ['cambio-aceite', 'neumaticos', 'frenos', etc]
   additionalNotes: string;
+  pickupDate?: string;
   totalPrice: number;
   status: 'pendiente' | 'aceptada' | 'rechazada';
   createdAt: string;

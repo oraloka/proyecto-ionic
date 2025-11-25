@@ -21,6 +21,8 @@ export class UsuarioSolicitudPage implements OnInit {
     make: '',
     model: '',
     year: 2024,
+    pickupDate: '',
+    cedula: '',
     vehicleType: 'sedan',
     additionalNotes: ''
   };
@@ -62,6 +64,19 @@ export class UsuarioSolicitudPage implements OnInit {
       return;
     }
 
+    // Require pickup date and cedula on the request
+    if (!this.form.pickupDate) {
+      const t = await this.toast.create({ message: 'Selecciona la fecha en la que traerás el vehículo', duration: 2000, color: 'warning' });
+      t.present();
+      return;
+    }
+
+    if (!this.form.cedula) {
+      const t = await this.toast.create({ message: 'Ingresa tu cédula para la solicitud', duration: 2000, color: 'warning' });
+      t.present();
+      return;
+    }
+
     const selectedCount = Object.values(this.selectedServices).filter(v => v).length;
     if (selectedCount === 0) {
       const t = await this.toast.create({ message: 'Selecciona al menos un servicio', duration: 2000, color: 'warning' });
@@ -78,12 +93,13 @@ export class UsuarioSolicitudPage implements OnInit {
       userName: `${this.user.nombre} ${this.user.apellido}`,
       userEmail: this.user.email,
       userPhone: this.user.telefono,
-      cedula: this.user.cedula,
+      cedula: this.form.cedula || this.user.cedula,
       placa: this.form.placa,
       vehicleType: this.form.vehicleType,
       make: this.form.make,
       model: this.form.model,
       year: this.form.year,
+      pickupDate: this.form.pickupDate,
       maintenanceTypes,
       additionalNotes: this.form.additionalNotes,
       totalPrice: this.calculateTotal()
