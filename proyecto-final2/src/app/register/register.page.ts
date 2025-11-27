@@ -5,6 +5,7 @@ import { IonicModule, ToastController } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 import { GoogleAuthProvider } from 'firebase/auth';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
@@ -33,7 +34,8 @@ export class RegisterPage implements OnInit {
     private router: Router,
     private afAuth: AngularFireAuth,
     private toastCtrl: ToastController,
-    private envInjector: EnvironmentInjector
+    private envInjector: EnvironmentInjector,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
@@ -64,6 +66,13 @@ export class RegisterPage implements OnInit {
         duration: 2000,
         color: 'warning'
       });
+      toast.present();
+      return;
+    }
+
+    // Validate strong password
+    if (!this.authService.isStrongPassword(this.password)) {
+      const toast = await this.toastCtrl.create({ message: 'La contraseña debe tener mínimo 8 caracteres, incluir mayúscula, minúscula, número y un carácter especial', duration: 3500, color: 'warning' });
       toast.present();
       return;
     }

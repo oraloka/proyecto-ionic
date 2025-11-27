@@ -5,21 +5,21 @@ import { User } from '../models/user.model';
 export class AuthService {
   private USERS_KEY = 'mf_users_v1';
   private CURRENT_USER_KEY = 'mf_current_user_v1';
+  private RESET_TOKENS_KEY = 'mf_password_reset_tokens_v1';
 
   constructor() {
     this.initializeAdminUser();
-    // Perform a one-time cleanup: remove non-admin users and clear requests so
-    // the workspace can start fresh. This runs only once and sets a flag
-    // `mf_initial_cleanup_done` in localStorage to avoid accidental repeated wipes.
-    try {
-      const cleaned = localStorage.getItem('mf_initial_cleanup_done');
-      if (!cleaned) {
-        this.purgeNonAdminData();
-        localStorage.setItem('mf_initial_cleanup_done', '1');
-      }
-    } catch (e) {
-      console.warn('Could not perform initial cleanup:', e);
-    }
+    // Nota: La limpieza inicial fue comentada porque estaba borrando usuarios registrados
+    // Si deseas hacer una limpieza, comenta la línea siguiente y llama a purgeNonAdminData() manualmente
+    // try {
+    //   const cleaned = localStorage.getItem('mf_initial_cleanup_done');
+    //   if (!cleaned) {
+    //     this.purgeNonAdminData();
+    //     localStorage.setItem('mf_initial_cleanup_done', '1');
+    //   }
+    // } catch (e) {
+    //   console.warn('Could not perform initial cleanup:', e);
+    // }
   }
 
   /**
@@ -48,6 +48,63 @@ export class AuthService {
       console.error('Error during purgeNonAdminData', err);
       return false;
     }
+  }
+
+  /**
+   * Create a password reset token for the given email and persist it with expiry (1h).
+   */
+  createPasswordResetToken(email: string): string | null {
+    const users = this.getAllUsers();
+    const user = users.find(u => u.email === email);
+    if (!user) return null;
+    const token = `prt-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+    const expires = Date.now() + 1000 * 60 * 60; // 1 hour
+    const tokens = JSON.parse(localStorage.getItem(this.RESET_TOKENS_KEY) || '[]');
+    tokens.push({ token, email, expires });
+    localStorage.setItem(this.RESET_TOKENS_KEY, JSON.stringify(tokens));
+    return token;
+  }
+
+  /**
+   * Reset password using token. Returns true on success.
+   */
+  resetPasswordWithToken(token: string, newPassword: string): boolean {
+    const raw = localStorage.getItem(this.RESET_TOKENS_KEY) || '[]';
+    const tokens = JSON.parse(raw) as Array<{ token: string; email: string; expires: number }>;
+    const idx = tokens.findIndex(t => t.token === token);
+    if (idx === -1) return false;
+    const record = tokens[idx];
+    if (Date.now() > record.expires) {
+      // token expired, remove
+      tokens.splice(idx, 1);
+      localStorage.setItem(this.RESET_TOKENS_KEY, JSON.stringify(tokens));
+      return false;
+    }
+    // find user
+    const users = this.getAllUsers();
+    const uidx = users.findIndex(u => u.email === record.email);
+    if (uidx === -1) return false;
+    users[uidx].password = this.hashPassword(newPassword);
+    localStorage.setItem(this.USERS_KEY, JSON.stringify(users));
+    // remove token
+    tokens.splice(idx, 1);
+    localStorage.setItem(this.RESET_TOKENS_KEY, JSON.stringify(tokens));
+    // update current user if matches
+    const current = this.getCurrentUser();
+    if (current && current.email === users[uidx].email) {
+      current.password = users[uidx].password;
+      this.setCurrentUser(current);
+    }
+    return true;
+  }
+
+  /**
+   * Validate password strength: at least 8 chars, one uppercase, one lowercase, one digit, one special char.
+   */
+  isStrongPassword(pwd: string): boolean {
+    if (!pwd || pwd.length < 8) return false;
+    const re = /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9])/;
+    return re.test(pwd);
   }
 
   private initializeAdminUser() {
