@@ -132,7 +132,14 @@ export class LoginPage implements OnInit {
           nombre = parts.shift() || '';
           apellido = parts.join(' ') || '';
         }
-        if (email) this.authService.ensureUserByEmail(email, nombre, apellido);
+        if (email) {
+          const user = this.authService.ensureUserByEmail(email, nombre, apellido);
+          // Si el usuario de Google no tiene contraseña local, pedirle que la establezca
+          if (!user.password) {
+            localStorage.setItem('openSetPasswordModal', 'true');
+            localStorage.setItem('googleUserEmail', email);
+          }
+        }
       } catch (e) {
         console.warn('Could not sync Google user to local auth', e);
       }

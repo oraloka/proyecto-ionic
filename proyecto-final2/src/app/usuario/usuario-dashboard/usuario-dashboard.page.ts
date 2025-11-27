@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { RequestService } from '../../services/request.service';
 import { User } from '../../models/user.model';
-import { ToastController } from '@ionic/angular';
+import { ToastController, ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-usuario-dashboard',
@@ -17,7 +17,7 @@ export class UsuarioDashboardPage implements OnInit {
   editForm = { nombre: '', apellido: '', email: '', telefono: '', cedula: '', direccion: '', password: '', confirmPassword: '' };
   stats = { total: 0, pending: 0, accepted: 0, rejected: 0 };
 
-  constructor(private auth: AuthService, private router: Router, private toast: ToastController, private reqSvc: RequestService) {}
+  constructor(private auth: AuthService, private router: Router, private toast: ToastController, private reqSvc: RequestService, private modalCtrl: ModalController) {}
 
   ngOnInit() {
     this.user = this.auth.getCurrentUser();
@@ -26,6 +26,12 @@ export class UsuarioDashboardPage implements OnInit {
     } else {
       this.initEditForm();
       this.loadStats();
+    }
+    // Si el usuario fue creado con Google y no tiene contraseña, pedirle que la establezca
+    const needsSetPassword = localStorage.getItem('openSetPasswordModal');
+    if (needsSetPassword === 'true') {
+      localStorage.removeItem('openSetPasswordModal');
+      this.showSetPasswordModal();
     }
     // If redirected to complete profile, open editor automatically
     const open = localStorage.getItem('openEditProfile');
@@ -140,5 +146,86 @@ export class UsuarioDashboardPage implements OnInit {
   logout() {
     this.auth.logout();
     this.router.navigate(['/login']);
+  }
+
+  async showSetPasswordModal() {
+    const alert = await this.toast.create({
+      message: 'Por favor establece una contraseña para tu cuenta',
+      duration: 0,
+      buttons: []
+    });
+    // En lugar de un alert simple, mostraremos un modal con inputs
+    const modal = document.createElement('ion-modal');
+    modal.component = 'ion-content';
+    
+    // Crear contenido del modal de forma manual
+    const content = `
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Establecer Contraseña</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <p>Necesitas establecer una contraseña para poder ingresar con tu correo electrónico.</p>
+        <ion-item>
+          <ion-label position="stacked">Nueva Contraseña</ion-label>
+          <ion-input id="pwd" type="password" placeholder="Mínimo 8 caracteres"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Confirmar Contraseña</ion-label>
+          <ion-input id="confirmPwd" type="password"></ion-input>
+        </ion-item>
+        <ion-button expand="block" class="ion-margin-top" id="setPwdBtn">Establecer Contraseña</ion-button>
+      </ion-content>
+    `;
+    
+    // Mejor: usar un componente standalone simple
+    this.showSetPasswordModalWithComponent();
+  }
+
+  private async showSetPasswordModalWithComponent() {
+    // Mostrar un alert simple pidiendo la contraseña
+    const alert = await this.toast.create({
+      message: 'Establece una contraseña para tu cuenta Google',
+      duration: 0,
+      buttons: []
+    });
+    alert.present();
+    
+    // Para una solución más simple, usar un prompt-like approach
+    const password = prompt('Establece una contraseña (min 8 caracteres, mayúscula, minúscula, número, especial):');
+    if (!password) return;
+    
+    const confirmPassword = prompt('Confirma la contraseña:');
+    if (!confirmPassword) return;
+    
+    if (password !== confirmPassword) {
+      const t = await this.toast.create({ message: 'Las contraseñas no coinciden', duration: 2000, color: 'warning' });
+      t.present();
+      return;
+    }
+    
+    if (!this.auth.isStrongPassword(password)) {
+      const t = await this.toast.create({ message: 'La contraseña debe tener mínimo 8 caracteres, incluir mayúscula, minúscula, número y un carácter especial', duration: 3500, color: 'warning' });
+      t.present();
+      return;
+    }
+    
+    const email = localStorage.getItem('googleUserEmail') || this.user?.email;
+    if (!email) {
+      const t = await this.toast.create({ message: 'No se pudo obtener el email', duration: 2000, color: 'danger' });
+      t.present();
+      return;
+    }
+    
+    const ok = this.auth.setPassword(email, password);
+    if (ok) {
+      localStorage.removeItem('googleUserEmail');
+      const t = await this.toast.create({ message: 'Contraseña establecida exitosamente', duration: 2000, color: 'success' });
+      t.present();
+    } else {
+      const t = await this.toast.create({ message: 'Error al establecer la contraseña', duration: 2000, color: 'danger' });
+      t.present();
+    }
   }
 }
