@@ -1,147 +1,189 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Dashboard - Usuario</ion-title>
+<ion-header [translucent]="true" class="professional-header">
+  <ion-toolbar class="toolbar-modern">
+    <ion-title>Mi Dashboard</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="logout()">
+      <ion-button (click)="logout()" fill="clear">
         <ion-icon slot="icon-only" name="log-out"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Bienvenido, {{user?.nombre}}</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <p>Aquí puedes solicitar mantenimiento para tu vehículo</p>
-    </ion-card-content>
-  </ion-card>
-
-  <ion-button expand="block" color="primary" (click)="goToNewRequest()">
-    <ion-icon slot="start" name="add-circle"></ion-icon>
-    Nueva Solicitud de Mantenimiento
-  </ion-button>
-
-  <ion-button expand="block" fill="outline" routerLink="/usuario-mis-solicitudes">
-    <ion-icon slot="start" name="list"></ion-icon>
-    Mis Solicitudes
-  </ion-button>
-
-  <ion-button expand="block" color="tertiary" (click)="toggleEditProfile()" *ngIf="!isEditingProfile">
-    <ion-icon slot="start" name="create"></ion-icon>
-    Editar Perfil
-  </ion-button>
-
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Mi Perfil</ion-card-title>
-      <ion-button slot="end" fill="clear" (click)="toggleEditProfile()" *ngIf="!isEditingProfile">
-        <ion-icon slot="icon-only" name="create"></ion-icon>
-      </ion-button>
-    </ion-card-header>
-    <ion-card-content>
-      <!-- Vista de lectura -->
-      <ng-container *ngIf="!isEditingProfile">
-        <ion-grid>
+<ion-content class="professional-home" [fullscreen]="true">
+  <div class="content-wrapper">
+    <!-- Welcome Section -->
+    <ion-card class="modern-card welcome-card">
+      <ion-card-header class="card-header">
+        <ion-card-title class="card-title">Bienvenido de vuelta, {{user?.nombre}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p class="welcome-text">Gestiona las solicitudes de mantenimiento para tus vehículos</p>
+        <ion-grid class="quick-stats">
           <ion-row>
-            <ion-col size="12" size-md="6">
-              <div class="profile-field">
-                <strong>Nombre:</strong>
-                <p>{{user?.nombre || 'No especificado'}}</p>
+            <ion-col size="6">
+              <div class="stat-item">
+                <div class="stat-label">Solicitudes Totales</div>
+                <div class="stat-value">5</div>
               </div>
             </ion-col>
-            <ion-col size="12" size-md="6">
-              <div class="profile-field">
-                <strong>Apellido:</strong>
-                <p>{{user?.apellido || 'No especificado'}}</p>
-              </div>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col size="12">
-              <div class="profile-field">
-                <strong>Email:</strong>
-                <p>{{user?.email || 'No especificado'}}</p>
-              </div>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col size="12" size-md="6">
-              <div class="profile-field">
-                <strong>Teléfono:</strong>
-                <p>{{user?.telefono || 'No especificado'}}</p>
-              </div>
-            </ion-col>
-            <ion-col size="12" size-md="6">
-              <div class="profile-field">
-                <strong>Cédula:</strong>
-                <p>{{user?.cedula || 'No especificada'}}</p>
-              </div>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col size="12">
-              <div class="profile-field">
-                <strong>Dirección:</strong>
-                <p>{{user?.direccion || 'No especificada'}}</p>
+            <ion-col size="6">
+              <div class="stat-item">
+                <div class="stat-label">Pendientes</div>
+                <div class="stat-value">2</div>
               </div>
             </ion-col>
           </ion-row>
         </ion-grid>
-      </ng-container>
+      </ion-card-content>
+    </ion-card>
 
-      <!-- Formulario de edición -->
-      <ng-container *ngIf="isEditingProfile">
-        <ion-item>
-          <ion-label position="stacked">Nombre</ion-label>
-          <ion-input [(ngModel)]="editForm.nombre" placeholder="Tu nombre"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="stacked">Apellido</ion-label>
-          <ion-input [(ngModel)]="editForm.apellido" placeholder="Tu apellido"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="stacked">Email</ion-label>
-          <ion-input [(ngModel)]="editForm.email" type="email" placeholder="Tu email" readonly></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="stacked">Teléfono</ion-label>
-          <ion-input [(ngModel)]="editForm.telefono" placeholder="Tu teléfono" type="tel"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="stacked">Cédula</ion-label>
-          <ion-input [(ngModel)]="editForm.cedula" placeholder="Tu cédula" type="text"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="stacked">Dirección</ion-label>
-          <ion-input [(ngModel)]="editForm.direccion" placeholder="Tu dirección" type="text"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="stacked">Nueva contraseña (opcional)</ion-label>
-          <ion-input [(ngModel)]="editForm.password" type="password" placeholder="Dejar vacío para no cambiar"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="stacked">Confirmar contraseña</ion-label>
-          <ion-input [(ngModel)]="editForm.confirmPassword" type="password" placeholder="Confirma la nueva contraseña"></ion-input>
-        </ion-item>
+    <!-- Action Buttons -->
+    <div class="action-buttons">
+      <ion-button expand="block" class="modern-button primary-action" (click)="goToNewRequest()">
+        <ion-icon slot="start" name="add-circle-outline"></ion-icon>
+        Nueva Solicitud
+      </ion-button>
+      <ion-button expand="block" class="modern-button secondary-action" routerLink="/usuario-mis-solicitudes">
+        <ion-icon slot="start" name="list-outline"></ion-icon>
+        Mis Solicitudes
+      </ion-button>
+    </div>
 
-        <ion-row class="ion-margin-top">
-          <ion-col>
-            <ion-button expand="block" color="primary" (click)="saveProfile()">
-              <ion-icon slot="start" name="checkmark"></ion-icon>
-              Guardar
-            </ion-button>
-          </ion-col>
-          <ion-col>
-            <ion-button expand="block" fill="outline" (click)="cancelEdit()">
-              <ion-icon slot="start" name="close"></ion-icon>
-              Cancelar
-            </ion-button>
-          </ion-col>
-        </ion-row>
-      </ng-container>
-    </ion-card-content>
-  </ion-card>
+    <!-- Profile Section -->
+    <ion-card class="modern-card profile-card">
+      <ion-card-header class="card-header">
+        <ion-card-title class="card-title">Mi Perfil</ion-card-title>
+        <ion-button slot="end" fill="clear" (click)="toggleEditProfile()" *ngIf="!isEditingProfile" class="edit-icon-button">
+          <ion-icon slot="icon-only" name="pencil-outline"></ion-icon>
+        </ion-button>
+      </ion-card-header>
+      <ion-card-content>
+        <!-- Vista de lectura -->
+        <ng-container *ngIf="!isEditingProfile">
+          <ion-grid>
+            <ion-row>
+              <ion-col size="12" size-md="6">
+                <div class="profile-field">
+                  <span class="field-label">Nombre</span>
+                  <p class="field-value">{{user?.nombre || 'No especificado'}}</p>
+                </div>
+              </ion-col>
+              <ion-col size="12" size-md="6">
+                <div class="profile-field">
+                  <span class="field-label">Apellido</span>
+                  <p class="field-value">{{user?.apellido || 'No especificado'}}</p>
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="12">
+                <div class="profile-field">
+                  <span class="field-label">Email</span>
+                  <p class="field-value">{{user?.email || 'No especificado'}}</p>
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="12" size-md="6">
+                <div class="profile-field">
+                  <span class="field-label">Teléfono</span>
+                  <p class="field-value">{{user?.telefono || 'No especificado'}}</p>
+                </div>
+              </ion-col>
+              <ion-col size="12" size-md="6">
+                <div class="profile-field">
+                  <span class="field-label">Cédula</span>
+                  <p class="field-value">{{user?.cedula || 'No especificada'}}</p>
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="12">
+                <div class="profile-field">
+                  <span class="field-label">Dirección</span>
+                  <p class="field-value">{{user?.direccion || 'No especificada'}}</p>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ng-container>
+
+        <!-- Formulario de edición -->
+        <ng-container *ngIf="isEditingProfile">
+          <form (ngSubmit)="saveProfile()">
+            <div class="form-group">
+              <ion-item class="modern-item">
+                <ion-label position="stacked">Nombre</ion-label>
+                <ion-input [(ngModel)]="editForm.nombre" name="nombre" placeholder="Tu nombre"></ion-input>
+              </ion-item>
+            </div>
+
+            <div class="form-group">
+              <ion-item class="modern-item">
+                <ion-label position="stacked">Apellido</ion-label>
+                <ion-input [(ngModel)]="editForm.apellido" name="apellido" placeholder="Tu apellido"></ion-input>
+              </ion-item>
+            </div>
+
+            <div class="form-group">
+              <ion-item class="modern-item">
+                <ion-label position="stacked">Email</ion-label>
+                <ion-input [(ngModel)]="editForm.email" type="email" name="email" placeholder="Tu email" readonly></ion-input>
+              </ion-item>
+            </div>
+
+            <div class="form-group">
+              <ion-item class="modern-item">
+                <ion-label position="stacked">Teléfono</ion-label>
+                <ion-input [(ngModel)]="editForm.telefono" type="tel" name="telefono" placeholder="Tu teléfono"></ion-input>
+              </ion-item>
+            </div>
+
+            <div class="form-group">
+              <ion-item class="modern-item">
+                <ion-label position="stacked">Cédula</ion-label>
+                <ion-input [(ngModel)]="editForm.cedula" name="cedula" placeholder="Tu cédula"></ion-input>
+              </ion-item>
+            </div>
+
+            <div class="form-group">
+              <ion-item class="modern-item">
+                <ion-label position="stacked">Dirección</ion-label>
+                <ion-input [(ngModel)]="editForm.direccion" name="direccion" placeholder="Tu dirección"></ion-input>
+              </ion-item>
+            </div>
+
+            <div class="form-group">
+              <ion-item class="modern-item">
+                <ion-label position="stacked">Nueva contraseña (opcional)</ion-label>
+                <ion-input [(ngModel)]="editForm.password" type="password" name="password" placeholder="Dejar vacío para no cambiar"></ion-input>
+              </ion-item>
+            </div>
+
+            <div class="form-group">
+              <ion-item class="modern-item">
+                <ion-label position="stacked">Confirmar contraseña</ion-label>
+                <ion-input [(ngModel)]="editForm.confirmPassword" type="password" name="confirmPassword" placeholder="Confirma la nueva contraseña"></ion-input>
+              </ion-item>
+            </div>
+
+            <ion-row class="button-group ion-margin-top">
+              <ion-col>
+                <ion-button expand="block" type="submit" class="modern-button primary-action">
+                  <ion-icon slot="start" name="checkmark-circle-outline"></ion-icon>
+                  Guardar
+                </ion-button>
+              </ion-col>
+              <ion-col>
+                <ion-button expand="block" type="button" fill="outline" class="modern-button" (click)="cancelEdit()">
+                  <ion-icon slot="start" name="close-circle-outline"></ion-icon>
+                  Cancelar
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </form>
+        </ng-container>
+      </ion-card-content>
+    </ion-card>
+  </div>
 </ion-content>

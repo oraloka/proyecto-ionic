@@ -1,88 +1,165 @@
-<ion-header>
-  <ion-toolbar>
+<ion-header [translucent]="true" class="professional-header">
+  <ion-toolbar class="toolbar-modern">
     <ion-buttons slot="start">
-      <ion-button (click)="goBack()">
-        <ion-icon slot="start" name="arrow-back"></ion-icon>
-        Volver
-      </ion-button>
+      <ion-back-button defaultHref="/usuario-dashboard" text=""></ion-back-button>
     </ion-buttons>
-    <ion-title>Solicitar Mantenimiento</ion-title>
+    <ion-title>Nueva Solicitud</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Información del Vehículo</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <form (ngSubmit)="submitRequest()">
-        <!-- Vehículo -->
-        <ion-item>
-          <ion-label position="stacked">Placa del Vehículo</ion-label>
-          <ion-input [(ngModel)]="form.placa" name="placa" placeholder="ABC-123" required></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="stacked">Marca</ion-label>
-          <ion-input [(ngModel)]="form.make" name="make" required></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="stacked">Modelo</ion-label>
-          <ion-input [(ngModel)]="form.model" name="model" required></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="stacked">Año</ion-label>
-          <ion-input type="number" [(ngModel)]="form.year" name="year" required></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="stacked">Fecha en la que traeré el vehículo</ion-label>
-          <ion-datetime display-format="DD MMM YYYY" picker-format="DD MMM YYYY" [(ngModel)]="form.pickupDate" name="pickupDate" placeholder="Selecciona fecha" required></ion-datetime>
-        </ion-item>
-        <ion-item>
-          <ion-label position="stacked">Cédula</ion-label>
-          <ion-input [(ngModel)]="form.cedula" name="cedula" placeholder="Tu cédula" required></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="stacked">Tipo de Vehículo</ion-label>
-          <ion-select [(ngModel)]="form.vehicleType" name="vehicleType" required>
-            <ion-select-option value="sedan">Sedán</ion-select-option>
-            <ion-select-option value="suv">SUV</ion-select-option>
-            <ion-select-option value="todoterreno">Todoterreno</ion-select-option>
-            <ion-select-option value="deportivo">Deportivo</ion-select-option>
-            <ion-select-option value="camioneta">Camioneta</ion-select-option>
-            <ion-select-option value="minivan">Minivan</ion-select-option>
-            <ion-select-option value="otro">Otro</ion-select-option>
-          </ion-select>
-        </ion-item>
+<ion-content class="professional-home" [fullscreen]="true">
+  <div class="content-wrapper">
+    <!-- Form Header -->
+    <ion-card class="modern-card form-intro">
+      <ion-card-header class="card-header">
+        <ion-card-title class="card-title">Solicitar Mantenimiento</ion-card-title>
+        <ion-card-subtitle class="card-subtitle">Completa el formulario para crear una nueva solicitud</ion-card-subtitle>
+      </ion-card-header>
+    </ion-card>
 
-        <!-- Servicios -->
-        <ion-item>
-          <ion-label>Selecciona los servicios</ion-label>
-        </ion-item>
-        <ion-item *ngFor="let service of services">
-          <ion-label>{{service.name}}</ion-label>
-          <ion-checkbox slot="start" [(ngModel)]="selectedServices[service.id]" [name]="'service-' + service.id"></ion-checkbox>
-          <ion-note slot="end">{{service.price | currency}}</ion-note>
-        </ion-item>
+    <!-- Vehicle Information Section -->
+    <ion-card class="modern-card">
+      <ion-card-header class="card-header">
+        <ion-card-title class="card-title">Información del Vehículo</ion-card-title>
+      </ion-card-header>
+      <ion-card-content class="form-section">
+        <form (ngSubmit)="submitRequest()">
+          <ion-grid>
+            <ion-row>
+              <ion-col size="12" size-md="6">
+                <div class="form-group">
+                  <ion-item class="modern-item">
+                    <ion-label position="stacked">Placa del Vehículo</ion-label>
+                    <ion-input [(ngModel)]="form.placa" name="placa" placeholder="ABC-123" required></ion-input>
+                  </ion-item>
+                </div>
+              </ion-col>
+              <ion-col size="12" size-md="6">
+                <div class="form-group">
+                  <ion-item class="modern-item">
+                    <ion-label position="stacked">Marca</ion-label>
+                    <ion-input [(ngModel)]="form.make" name="make" placeholder="Toyota" required></ion-input>
+                  </ion-item>
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="12" size-md="6">
+                <div class="form-group">
+                  <ion-item class="modern-item">
+                    <ion-label position="stacked">Modelo</ion-label>
+                    <ion-input [(ngModel)]="form.model" name="model" placeholder="Corolla" required></ion-input>
+                  </ion-item>
+                </div>
+              </ion-col>
+              <ion-col size="12" size-md="6">
+                <div class="form-group">
+                  <ion-item class="modern-item">
+                    <ion-label position="stacked">Año</ion-label>
+                    <ion-input type="number" [(ngModel)]="form.year" name="year" placeholder="2023" required></ion-input>
+                  </ion-item>
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="12" size-md="6">
+                <div class="form-group">
+                  <ion-item class="modern-item">
+                    <ion-label position="stacked">Cédula</ion-label>
+                    <ion-input [(ngModel)]="form.cedula" name="cedula" placeholder="Tu cédula" required></ion-input>
+                  </ion-item>
+                </div>
+              </ion-col>
+              <ion-col size="12" size-md="6">
+                <div class="form-group">
+                  <ion-item class="modern-item">
+                    <ion-label position="stacked">Tipo de Vehículo</ion-label>
+                    <ion-select [(ngModel)]="form.vehicleType" name="vehicleType" required>
+                      <ion-select-option value="sedan">Sedán</ion-select-option>
+                      <ion-select-option value="suv">SUV</ion-select-option>
+                      <ion-select-option value="todoterreno">Todoterreno</ion-select-option>
+                      <ion-select-option value="deportivo">Deportivo</ion-select-option>
+                      <ion-select-option value="camioneta">Camioneta</ion-select-option>
+                      <ion-select-option value="minivan">Minivan</ion-select-option>
+                      <ion-select-option value="otro">Otro</ion-select-option>
+                    </ion-select>
+                  </ion-item>
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="12">
+                <div class="form-group">
+                  <ion-item class="modern-item">
+                    <ion-label position="stacked">Fecha de Entrega</ion-label>
+                    <ion-datetime display-format="DD MMM YYYY" picker-format="DD MMM YYYY" [(ngModel)]="form.pickupDate" name="pickupDate" placeholder="Selecciona fecha" required></ion-datetime>
+                  </ion-item>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </form>
+      </ion-card-content>
+    </ion-card>
 
-        <!-- Total -->
-        <ion-card>
-          <ion-card-content>
-            <h3>Total: {{calculateTotal() | currency}}</h3>
-          </ion-card-content>
-        </ion-card>
+    <!-- Services Section -->
+    <ion-card class="modern-card">
+      <ion-card-header class="card-header">
+        <ion-card-title class="card-title">Servicios Solicitados</ion-card-title>
+        <ion-card-subtitle class="card-subtitle">Selecciona los servicios que necesitas</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content class="services-section">
+        <div class="services-list">
+          <div class="service-item" *ngFor="let service of services">
+            <div class="service-checkbox">
+              <ion-checkbox [(ngModel)]="selectedServices[service.id]" [name]="'service-' + service.id"></ion-checkbox>
+            </div>
+            <div class="service-info">
+              <p class="service-name">{{service.name}}</p>
+            </div>
+            <div class="service-price">
+              <span class="price-badge">{{service.price | currency}}</span>
+            </div>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
 
-        <!-- Notas adicionales -->
-        <ion-item>
-          <ion-label position="stacked">Notas Adicionales</ion-label>
-          <ion-textarea [(ngModel)]="form.additionalNotes" name="additionalNotes" placeholder="Describe cualquier problema que tengas..."></ion-textarea>
-        </ion-item>
+    <!-- Total Card -->
+    <ion-card class="modern-card total-card">
+      <ion-card-content>
+        <div class="total-section">
+          <span class="total-label">Total de Solicitud</span>
+          <h2 class="total-value">{{calculateTotal() | currency}}</h2>
+        </div>
+      </ion-card-content>
+    </ion-card>
 
-        <ion-button expand="block" type="submit" color="success" class="ion-margin-top">
-          <ion-icon slot="start" name="checkmark-circle"></ion-icon>
-          Enviar Solicitud
-        </ion-button>
-      </form>
-    </ion-card-content>
-  </ion-card>
+    <!-- Additional Notes -->
+    <ion-card class="modern-card">
+      <ion-card-header class="card-header">
+        <ion-card-title class="card-title">Notas Adicionales</ion-card-title>
+      </ion-card-header>
+      <ion-card-content class="form-section">
+        <div class="form-group">
+          <ion-item class="modern-item textarea-item">
+            <ion-label position="stacked">Describe los problemas o servicios específicos</ion-label>
+            <ion-textarea [(ngModel)]="form.additionalNotes" name="additionalNotes" placeholder="Escribe aquí cualquier detalle importante..." rows="4"></ion-textarea>
+          </ion-item>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Action Buttons -->
+    <div class="action-buttons">
+      <ion-button expand="block" type="submit" class="modern-button primary-action" (click)="submitRequest()">
+        <ion-icon slot="start" name="checkmark-circle-outline"></ion-icon>
+        Enviar Solicitud
+      </ion-button>
+      <ion-button expand="block" fill="outline" class="modern-button secondary-action" (click)="goBack()">
+        <ion-icon slot="start" name="arrow-back-outline"></ion-icon>
+        Cancelar
+      </ion-button>
+    </div>
+  </div>
 </ion-content>

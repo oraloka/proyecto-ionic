@@ -21,4 +21,15 @@ export class AlertsPage implements OnInit {
   load() {
     this.alerts = this.svc.getAlerts();
   }
+
+  getAlertIcon(type: string): string {
+    const iconMap: { [key: string]: string } = {
+      'mantenimiento': 'wrench-outline',
+      'servicio': 'build-outline',
+      'info': 'information-circle-outline',
+      'advertencia': 'warning-outline',
+      'error': 'close-circle-outline'
+    };
+    return iconMap[type] || 'notifications-outline';
+  }
 }

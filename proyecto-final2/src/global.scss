@@ -35,3 +35,36 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import "@ionic/angular/css/palettes/dark.system.css";
+
+/* Import Inter font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+
+html, body {
+	font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+	background: var(--ion-background-color);
+	color: var(--ion-text-color);
+}
+
+/* App container utility */
+.app-card {
+	background: var(--ion-card-background);
+	border-radius: var(--ion-card-border-radius);
+	box-shadow: var(--ion-box-shadow);
+	padding: 1rem;
+}
+
+/* Form inputs */
+.modern-input {
+	--background: transparent;
+	--border-radius: 8px;
+	--padding-start: 12px;
+	--padding-end: 12px;
+	border: 1px solid rgba(255,255,255,0.06);
+}
+
+/* Buttons */
+.login-button, .register-button {
+	--border-radius: 10px;
+	--box-shadow: none;
+}
+

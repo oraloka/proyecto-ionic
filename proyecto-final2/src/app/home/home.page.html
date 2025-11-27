@@ -1,35 +1,156 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Sistema de Mantenimiento</ion-title>
+<ion-header [translucent]="true" class="professional-header">
+  <ion-toolbar class="toolbar-modern">
+    <ion-title class="header-title">Sistema de Mantenimiento</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/settings" class="settings-button" fill="clear">
+        <ion-icon slot="icon-only" name="settings-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-grid>
-    <ion-row>
-      <ion-col size="12">
-        <ion-card>
-          <ion-card-header>
-            <ion-card-title>🚘 3️⃣ Sistema móvil de mantenimiento para vehículos</ion-card-title>
-            <ion-card-subtitle>🛠️ Ideal si te gustan los autos o mecánica</ion-card-subtitle>
-          </ion-card-header>
+<ion-content class="professional-home" [fullscreen]="true">
+  <div class="content-wrapper">
+    <!-- Welcome Hero Section -->
+    <ion-card class="modern-card hero-card">
+      <ion-card-content class="hero-content">
+        <div class="hero-icon">
+          <ion-icon name="car-sport-outline"></ion-icon>
+        </div>
+        <h1 class="hero-title">Gestión Completa de Mantenimiento</h1>
+        <p class="hero-subtitle">Administra tu flota de vehículos y solicita servicios de mantenimiento de forma eficiente</p>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Quick Stats -->
+    <ion-card class="modern-card stats-card">
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="6">
+              <div class="stat-item">
+                <ion-icon name="car-outline"></ion-icon>
+                <p class="stat-label">Vehículos</p>
+                <h3 class="stat-value">3</h3>
+              </div>
+            </ion-col>
+            <ion-col size="6">
+              <div class="stat-item">
+                <ion-icon name="alert-circle-outline"></ion-icon>
+                <p class="stat-label">Alertas</p>
+                <h3 class="stat-value">2</h3>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Main Navigation Section -->
+    <div class="navigation-section">
+      <p class="section-title">Acciones Principales</p>
+      
+      <div class="nav-grid">
+        <ion-card class="nav-card" routerLink="/usuario-dashboard">
           <ion-card-content>
-            - Registrar vehículos
-            <br>- Alertas automáticas por cambio de aceite, revisión, kilometraje
-            <br>- Gestión de gastos en mantenimiento
-            <br>- Estadísticas por mes
+            <div class="nav-icon">
+              <ion-icon name="person-circle-outline"></ion-icon>
+            </div>
+            <h3 class="nav-title">Mi Dashboard</h3>
+            <p class="nav-description">Ver perfil y gestionar solicitudes</p>
           </ion-card-content>
         </ion-card>
-      </ion-col>
-    </ion-row>
 
-    <ion-row>
-      <ion-col size="6"><ion-button expand="block" routerLink="/vehicles">Vehículos</ion-button></ion-col>
-      <ion-col size="6"><ion-button expand="block" routerLink="/alerts">Alertas</ion-button></ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col size="6"><ion-button expand="block" routerLink="/expenses">Gastos</ion-button></ion-col>
-      <ion-col size="6"><ion-button expand="block" routerLink="/stats">Estadísticas</ion-button></ion-col>
-    </ion-row>
-  </ion-grid>
+        <ion-card class="nav-card" routerLink="/usuario-solicitud">
+          <ion-card-content>
+            <div class="nav-icon">
+              <ion-icon name="add-circle-outline"></ion-icon>
+            </div>
+            <h3 class="nav-title">Nueva Solicitud</h3>
+            <p class="nav-description">Solicitar mantenimiento para tu vehículo</p>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card class="nav-card" routerLink="/usuario-mis-solicitudes">
+          <ion-card-content>
+            <div class="nav-icon">
+              <ion-icon name="list-outline"></ion-icon>
+            </div>
+            <h3 class="nav-title">Mis Solicitudes</h3>
+            <p class="nav-description">Ver historial de solicitudes</p>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card class="nav-card" routerLink="/alerts">
+          <ion-card-content>
+            <div class="nav-icon">
+              <ion-icon name="notifications-outline"></ion-icon>
+            </div>
+            <h3 class="nav-title">Alertas</h3>
+            <p class="nav-description">Ver alertas del sistema</p>
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </div>
+
+    <!-- Features Section -->
+    <ion-card class="modern-card features-card">
+      <ion-card-header class="card-header">
+        <ion-card-title class="card-title">Características del Sistema</ion-card-title>
+      </ion-card-header>
+      <ion-card-content class="features-content">
+        <div class="feature-item">
+          <div class="feature-icon">
+            <ion-icon name="checkmark-circle-outline"></ion-icon>
+          </div>
+          <div class="feature-text">
+            <h4 class="feature-title">Registros de Vehículos</h4>
+            <p class="feature-description">Mantén un registro completo de todos tus vehículos</p>
+          </div>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-icon">
+            <ion-icon name="notifications-outline"></ion-icon>
+          </div>
+          <div class="feature-text">
+            <h4 class="feature-title">Alertas Automáticas</h4>
+            <p class="feature-description">Recibe notificaciones sobre cambios de aceite y mantenimiento</p>
+          </div>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-icon">
+            <ion-icon name="wallet-outline"></ion-icon>
+          </div>
+          <div class="feature-text">
+            <h4 class="feature-title">Gestión de Gastos</h4>
+            <p class="feature-description">Controla y analiza tus gastos de mantenimiento</p>
+          </div>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-icon">
+            <ion-icon name="bar-chart-outline"></ion-icon>
+          </div>
+          <div class="feature-text">
+            <h4 class="feature-title">Estadísticas</h4>
+            <p class="feature-description">Visualiza análisis mensuales y tendencias</p>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Call to Action -->
+    <ion-card class="modern-card cta-card">
+      <ion-card-content class="cta-content">
+        <h2 class="cta-title">¿Listo para comenzar?</h2>
+        <p class="cta-description">Crea tu primera solicitud de mantenimiento ahora</p>
+        <ion-button expand="block" class="modern-button cta-button" routerLink="/usuario-solicitud">
+          <ion-icon slot="start" name="rocket-outline"></ion-icon>
+          Crear Solicitud
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+  </div>
 </ion-content>

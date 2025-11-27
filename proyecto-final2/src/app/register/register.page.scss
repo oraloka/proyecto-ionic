@@ -1,2 +1,8 @@
-/* Register page minimal */
-ion-content { padding: 1rem; }
+/* Register page refined */
+.register-container { max-width:520px; margin: 0 auto; }
+.logo-section { text-align:center; margin-bottom: 8px; }
+.logo-circle { width:64px;height:64px;border-radius:50%;background:var(--ion-color-primary);display:inline-flex;align-items:center;justify-content:center;color:var(--ion-color-primary-contrast);font-size:26px;margin:0 auto 8px; }
+.modern-input { --background: rgba(255,255,255,0.02); margin-bottom:10px; }
+.register-button { --background: linear-gradient(90deg,var(--ion-color-primary),var(--ion-color-primary-tint)); color:#fff }
+.social-button { --background: rgba(255,255,255,0.03); color:var(--ion-color-primary-contrast); margin-top:8px; }
+

@@ -1,16 +1,13 @@
-/* Minimal styles for admin dashboard to satisfy build */
-:host {
-  display: block;
-  padding: 0.5rem;
+/* Admin dashboard styles - professional */
+.filter-card {
+	margin-bottom: 12px;
 }
+.stats {
+	display:flex; gap:12px; margin-bottom:12px;
+}
+.stat-value { padding:8px 12px; border-radius:8px; background: rgba(255,255,255,0.02); }
+.stat-value.pending { color: var(--ion-color-warning); }
+.stat-value.approved { color: var(--ion-color-success); }
+.stat-value.rejected { color: var(--ion-color-danger); }
+.request-list ion-item { border-radius:8px; margin-bottom:8px; background: rgba(255,255,255,0.01); }
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.5rem;
-}
-
-.filters {
-  margin-bottom: 0.5rem;
-}

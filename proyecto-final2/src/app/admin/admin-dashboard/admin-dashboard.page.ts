@@ -86,4 +86,16 @@ export class AdminDashboardPage implements OnInit {
   closeDetails() {
     this.selectedRequest = null;
   }
+
+  getPendingCount(): number {
+    return this.req.getAllRequests().filter(r => r.status === 'pendiente').length;
+  }
+
+  getApprovedCount(): number {
+    return this.req.getAllRequests().filter(r => r.status === 'aceptada').length;
+  }
+
+  getRejectedCount(): number {
+    return this.req.getAllRequests().filter(r => r.status === 'rechazada').length;
+  }
 }

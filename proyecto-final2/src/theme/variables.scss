@@ -1,2 +1,49 @@
-// For information on how to create your own theme, please see:
-// http://ionicframework.com/docs/theming/
+// Theme variables for the app
+// Dark professional palette + typography
+// See: https://ionicframework.com/docs/theming/
+
+:root {
+	/* Colors */
+	--ion-color-primary: #6b5cff; /* violet-ish */
+	--ion-color-primary-contrast: #ffffff;
+	--ion-color-primary-shade: #5a4df0;
+	--ion-color-primary-tint: #7c6dff;
+
+	--ion-color-secondary: #2dd4bf; /* teal */
+	--ion-color-secondary-contrast: #000000;
+
+	--ion-color-tertiary: #10b981; /* green */
+
+	--ion-color-success: #2ecc71;
+	--ion-color-warning: #f59e0b;
+	--ion-color-danger: #ef4444;
+
+	/* Background / surfaces */
+	--ion-background-color: #0f1113;
+	--ion-surface-color: #161719;
+	--ion-card-background: #161719;
+
+	/* Text */
+	--ion-text-color: #e6eef8; /* light text */
+	--ion-text-color-muted: #9aa7b2;
+
+	/* Shadows and radii */
+	--ion-card-border-radius: 12px;
+	--ion-box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+
+	--ion-color-step-50:  #f7f2ff;
+	--ion-color-step-100: #efe8ff;
+	--ion-color-step-200: #e0d1ff;
+	--ion-color-step-300: #c1a8ff;
+	--ion-color-step-400: #a67cff;
+	--ion-color-step-500: #8b5bff;
+	--ion-color-step-600: #6b5cff;
+	--ion-color-step-700: #5338d9;
+	--ion-color-step-800: #3f27a7;
+	--ion-color-step-900: #2a176f;
+}
+
+/* Dark mode class (explicit) */
+.dark {
+  color-scheme: dark;
+}

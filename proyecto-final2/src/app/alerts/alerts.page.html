@@ -1,17 +1,43 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Alertas</ion-title>
+<ion-header [translucent]="true" class="professional-header">
+  <ion-toolbar class="toolbar-modern">
+    <ion-title>Alertas del Sistema</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-list>
-    <ion-item *ngFor="let a of alerts">
-      <ion-label>
-        <h2>{{a.vehicle.make}} {{a.vehicle.model}}</h2>
-        <p>{{a.info}}</p>
-      </ion-label>
-    </ion-item>
-  </ion-list>
-  <div *ngIf="alerts.length===0" class="centered">No hay alertas</div>
+<ion-content class="professional-home" [fullscreen]="true">
+  <div class="content-wrapper">
+    <!-- No alerts message -->
+    <div *ngIf="alerts.length === 0" class="empty-state">
+      <ion-icon name="checkmark-circle-outline"></ion-icon>
+      <h2>Sin alertas</h2>
+      <p>Todo está en orden, no hay alertas pendientes</p>
+    </div>
+
+    <!-- Alerts list -->
+    <ng-container *ngIf="alerts.length > 0">
+      <ion-card class="modern-card alerts-header">
+        <ion-card-header class="card-header">
+          <ion-card-title class="card-title">Alertas Activas</ion-card-title>
+          <ion-card-subtitle class="card-subtitle">{{alerts.length}} alertas encontradas</ion-card-subtitle>
+        </ion-card-header>
+      </ion-card>
+
+      <ion-card class="modern-card alert-item" *ngFor="let a of alerts" [class.alert-critical]="a.severity === 'critical'">
+        <ion-card-content class="alert-content">
+          <div class="alert-header">
+            <ion-icon [name]="getAlertIcon(a.type)" class="alert-icon"></ion-icon>
+            <div class="alert-info">
+              <h3 class="alert-title">{{a.vehicle.make}} {{a.vehicle.model}}</h3>
+              <p class="alert-plate">{{a.vehicle.plate}}</p>
+            </div>
+            <span [class]="'severity-badge severity-' + a.severity">{{a.severity | titlecase}}</span>
+          </div>
+          <p class="alert-message">{{a.info}}</p>
+          <div class="alert-meta">
+            <span class="alert-time">{{a.createdAt | date:'short'}}</span>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </ng-container>
+  </div>
 </ion-content>

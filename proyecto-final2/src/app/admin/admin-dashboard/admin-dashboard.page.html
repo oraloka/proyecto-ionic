@@ -1,80 +1,197 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Admin - Solicitudes</ion-title>
+<ion-header [translucent]="true" class="professional-header">
+  <ion-toolbar class="toolbar-modern">
+    <ion-title>Panel de Administración</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="logout()">Salir</ion-button>
+      <ion-button (click)="logout()" fill="clear">
+        <ion-icon slot="icon-only" name="log-out"></ion-icon>
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Filtros</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-item>
-        <ion-label position="stacked">Tipo de Vehículo</ion-label>
-        <ion-select [(ngModel)]="filters.type" (ionChange)="applyFilters()">
-          <ion-select-option value="">Todos</ion-select-option>
-          <ion-select-option value="sedan">Sedán</ion-select-option>
-          <ion-select-option value="suv">SUV</ion-select-option>
-          <ion-select-option value="todoterreno">Todoterreno</ion-select-option>
-          <ion-select-option value="deportivo">Deportivo</ion-select-option>
-          <ion-select-option value="camioneta">Camioneta</ion-select-option>
-        </ion-select>
-      </ion-item>
-      <ion-item>
-        <ion-label position="stacked">Placa</ion-label>
-        <ion-input [(ngModel)]="filters.placa" (ionChange)="applyFilters()"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="stacked">Cédula</ion-label>
-        <ion-input [(ngModel)]="filters.cedula" (ionChange)="applyFilters()"></ion-input>
-      </ion-item>
-    </ion-card-content>
-  </ion-card>
-
-  <ion-list>
-    <ion-item *ngFor="let r of results">
-      <ion-label>
-        <h3>{{r.userName}} - {{r.make}} {{r.model}} ({{r.vehicleType}})</h3>
-        <p>{{r.placa}} • {{r.cedula}} • Fecha de entrega: {{r.pickupDate ? (r.pickupDate | date:'shortDate') : (r.createdAt | date:'short')}}</p>
-        <p>Servicios: {{r.maintenanceTypes.join(', ')}}</p>
-        <p>Total: {{r.totalPrice | currency}}</p>
-      </ion-label>
-      <ion-buttons slot="end">
-        <ion-button (click)="viewDetails(r)">Ver</ion-button>
-        <ng-container *ngIf="r.status === 'pendiente'">
-          <ion-button color="success" (click)="accept(r.id)">Aceptar</ion-button>
-          <ion-button color="danger" (click)="reject(r.id)">Rechazar</ion-button>
-        </ng-container>
-        <ng-container *ngIf="r.status !== 'pendiente'">
-          <ion-note>{{r.status | titlecase}}</ion-note>
-        </ng-container>
-      </ion-buttons>
-    </ion-item>
-  </ion-list>
-
-    <!-- Detalle de solicitud seleccionado -->
-    <ion-card *ngIf="selectedRequest" class="ion-margin-top">
-      <ion-card-header>
-        <ion-card-title>Detalle de Solicitud</ion-card-title>
-        <ion-button slot="end" fill="clear" (click)="closeDetails()">Cerrar</ion-button>
+<ion-content class="professional-home" [fullscreen]="true">
+  <div class="content-wrapper">
+    <!-- Filter Card -->
+    <ion-card class="modern-card filter-card">
+      <ion-card-header class="card-header">
+        <ion-card-title class="card-title">Filtrar Solicitudes</ion-card-title>
       </ion-card-header>
-      <ion-card-content>
-        <h3>{{selectedRequest.userName}} ({{selectedRequest.userEmail}})</h3>
-        <p><strong>Cédula:</strong> {{selectedRequest.cedula}}</p>
-        <p><strong>Teléfono:</strong> {{selectedRequest.userPhone}}</p>
-        <p><strong>Placa:</strong> {{selectedRequest.placa}}</p>
-        <p><strong>Vehículo:</strong> {{selectedRequest.make}} {{selectedRequest.model}} ({{selectedRequest.year}})</p>
-        <p><strong>Tipo:</strong> {{selectedRequest.vehicleType}}</p>
-        <p><strong>Fecha de entrega:</strong> {{selectedRequest.pickupDate ? (selectedRequest.pickupDate | date:'fullDate') : 'No especificada'}}</p>
-        <p><strong>Servicios:</strong> {{selectedRequest.maintenanceTypes.join(', ')}}</p>
-        <p><strong>Notas:</strong> {{selectedRequest.additionalNotes}}</p>
-        <p><strong>Total:</strong> {{selectedRequest.totalPrice | currency}}</p>
-        <p><strong>Estado:</strong> {{selectedRequest.status}}</p>
-        <p *ngIf="selectedRequest.adminNotes"><strong>Motivo rechazo:</strong> {{selectedRequest.adminNotes}}</p>
+      <ion-card-content class="filter-content">
+        <ion-grid>
+          <ion-row>
+            <ion-col size="12" size-md="6">
+              <div class="form-group">
+                <ion-item class="modern-item">
+                  <ion-label position="stacked">Tipo de Vehículo</ion-label>
+                  <ion-select [(ngModel)]="filters.type" (ionChange)="applyFilters()">
+                    <ion-select-option value="">Todos</ion-select-option>
+                    <ion-select-option value="sedan">Sedán</ion-select-option>
+                    <ion-select-option value="suv">SUV</ion-select-option>
+                    <ion-select-option value="todoterreno">Todoterreno</ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </div>
+            </ion-col>
+            <ion-col size="12" size-md="6">
+              <div class="form-group">
+                <ion-item class="modern-item">
+                  <ion-label position="stacked">Placa</ion-label>
+                  <ion-input [(ngModel)]="filters.placa" (ionChange)="applyFilters()"></ion-input>
+                </ion-item>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12" size-md="6">
+              <div class="form-group">
+                <ion-item class="modern-item">
+                  <ion-label position="stacked">Cédula</ion-label>
+                  <ion-input [(ngModel)]="filters.cedula" (ionChange)="applyFilters()"></ion-input>
+                </ion-item>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
       </ion-card-content>
     </ion-card>
+
+    <!-- Results Stats -->
+    <ion-card class="modern-card stats-card">
+      <ion-card-header class="card-header">
+        <ion-card-title class="card-title">Resumen de Resultados</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="6" size-md="3">
+              <div class="stat-item">
+                <div class="stat-label">Total</div>
+                <div class="stat-value">{{results.length}}</div>
+              </div>
+            </ion-col>
+            <ion-col size="6" size-md="3">
+              <div class="stat-item">
+                <div class="stat-label">Pendientes</div>
+                <div class="stat-value pending">{{getPendingCount()}}</div>
+              </div>
+            </ion-col>
+            <ion-col size="6" size-md="3">
+              <div class="stat-item">
+                <div class="stat-label">Aceptadas</div>
+                <div class="stat-value approved">{{getApprovedCount()}}</div>
+              </div>
+            </ion-col>
+            <ion-col size="6" size-md="3">
+              <div class="stat-item">
+                <div class="stat-label">Rechazadas</div>
+                <div class="stat-value rejected">{{getRejectedCount()}}</div>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Requests List -->
+    <ion-card class="modern-card requests-header">
+      <ion-card-header class="card-header">
+        <ion-card-title class="card-title">Solicitudes de Mantenimiento</ion-card-title>
+      </ion-card-header>
+    </ion-card>
+
+    <ion-card class="modern-card request-item" *ngFor="let r of results" (click)="viewDetails(r)">
+      <ion-card-content class="request-content">
+        <div class="request-header">
+          <div class="request-info">
+            <h3 class="request-user">{{r.userName}}</h3>
+            <p class="request-vehicle">{{r.make}} {{r.model}} ({{r.vehicleType}})</p>
+            <p class="request-details-text">Placa: {{r.placa}} • Cédula: {{r.cedula}}</p>
+          </div>
+          <span [class]="'status-badge status-' + r.status">{{r.status | titlecase}}</span>
+        </div>
+
+        <div class="request-details">
+          <ion-grid>
+            <ion-row>
+              <ion-col size="6" size-md="3">
+                <span class="detail-label">Fecha Entrega</span>
+                <p class="detail-value">{{r.pickupDate ? (r.pickupDate | date:'shortDate') : (r.createdAt | date:'short')}}</p>
+              </ion-col>
+              <ion-col size="6" size-md="3">
+                <span class="detail-label">Total</span>
+                <p class="detail-value">{{r.totalPrice | currency}}</p>
+              </ion-col>
+              <ion-col size="12" size-md="6">
+                <span class="detail-label">Servicios</span>
+                <p class="detail-value">{{r.maintenanceTypes.join(', ')}}</p>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+
+        <ng-container *ngIf="r.status === 'pendiente'">
+          <div class="action-buttons">
+            <ion-button fill="solid" class="approve-button" (click)="accept(r.id); $event.stopPropagation()">
+              <ion-icon slot="start" name="checkmark-circle-outline"></ion-icon>
+              Aceptar
+            </ion-button>
+            <ion-button fill="solid" class="reject-button" (click)="reject(r.id); $event.stopPropagation()">
+              <ion-icon slot="start" name="close-circle-outline"></ion-icon>
+              Rechazar
+            </ion-button>
+          </div>
+        </ng-container>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Detail Modal -->
+    <ion-card *ngIf="selectedRequest" class="modern-card detail-modal">
+      <ion-card-header class="card-header">
+        <ion-card-title class="card-title">Detalle de Solicitud</ion-card-title>
+        <ion-button slot="end" fill="clear" (click)="closeDetails()" class="close-button">
+          <ion-icon slot="icon-only" name="close-circle-outline"></ion-icon>
+        </ion-button>
+      </ion-card-header>
+      <ion-card-content class="detail-content">
+        <ion-grid>
+          <ion-row>
+            <ion-col size="12" size-md="6">
+              <div class="detail-section">
+                <span class="section-label">Usuario</span>
+                <p><strong>Nombre:</strong> {{selectedRequest.userName}}</p>
+                <p><strong>Email:</strong> {{selectedRequest.userEmail}}</p>
+                <p><strong>Teléfono:</strong> {{selectedRequest.userPhone}}</p>
+                <p><strong>Cédula:</strong> {{selectedRequest.cedula}}</p>
+              </div>
+            </ion-col>
+            <ion-col size="12" size-md="6">
+              <div class="detail-section">
+                <span class="section-label">Vehículo</span>
+                <p><strong>Marca/Modelo:</strong> {{selectedRequest.make}} {{selectedRequest.model}}</p>
+                <p><strong>Año:</strong> {{selectedRequest.year}}</p>
+                <p><strong>Placa:</strong> {{selectedRequest.placa}}</p>
+                <p><strong>Tipo:</strong> {{selectedRequest.vehicleType}}</p>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12">
+              <div class="detail-section">
+                <span class="section-label">Servicios Solicitados</span>
+                <p>{{selectedRequest.maintenanceTypes.join(', ')}}</p>
+                <p><strong>Total: {{selectedRequest.totalPrice | currency}}</strong></p>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12">
+              <ion-button expand="block" fill="clear" (click)="closeDetails()" class="close-button-bottom">
+                Cerrar
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+  </div>
 </ion-content>
