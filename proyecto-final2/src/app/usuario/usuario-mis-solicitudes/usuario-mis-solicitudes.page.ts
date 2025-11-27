@@ -18,7 +18,7 @@ export class UsuarioMisSolicitudesPage implements OnInit {
   ngOnInit() {
     const user = this.auth.getCurrentUser();
     if (!user) {
-      this.router.navigate(['/login-usuario']);
+      this.router.navigate(['/login']);
       return;
     }
     this.requests = this.req.getRequestsByUser(user.id!);

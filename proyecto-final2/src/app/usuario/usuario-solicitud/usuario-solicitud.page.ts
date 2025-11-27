@@ -38,7 +38,7 @@ export class UsuarioSolicitudPage implements OnInit {
   ngOnInit() {
     this.user = this.auth.getCurrentUser();
     if (!this.user) {
-      this.router.navigate(['/login-usuario']);
+      this.router.navigate(['/login']);
       return;
     }
       // Block request creation if user profile is incomplete

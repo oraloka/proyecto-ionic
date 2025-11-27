@@ -20,7 +20,7 @@ export class AdminDashboardPage implements OnInit {
 
   ngOnInit() {
     if (!this.auth.isAdmin()) {
-      this.router.navigate(['/login-admin']);
+      this.router.navigate(['/login']);
       return;
     }
     this.load();
@@ -76,7 +76,7 @@ export class AdminDashboardPage implements OnInit {
 
   logout() {
     this.auth.logout();
-    this.router.navigate(['/login-select']);
+    this.router.navigate(['/login']);
   }
 
   viewDetails(r: any) {

@@ -20,7 +20,7 @@ export class UsuarioDashboardPage implements OnInit {
   ngOnInit() {
     this.user = this.auth.getCurrentUser();
     if (!this.user) {
-      this.router.navigate(['/login-usuario']);
+      this.router.navigate(['/login']);
     } else {
       this.initEditForm();
     }
@@ -117,7 +117,7 @@ export class UsuarioDashboardPage implements OnInit {
     console.log('Navigating to usuario-solicitud. Current user:', this.user);
     if (!this.user) {
       console.warn('No current user — redirecting to login');
-      this.router.navigate(['/login-usuario']);
+      this.router.navigate(['/login']);
       return;
     }
     this.router.navigateByUrl('/usuario-solicitud').catch(err => {
@@ -127,6 +127,6 @@ export class UsuarioDashboardPage implements OnInit {
 
   logout() {
     this.auth.logout();
-    this.router.navigate(['/login-select']);
+    this.router.navigate(['/login']);
   }
 }

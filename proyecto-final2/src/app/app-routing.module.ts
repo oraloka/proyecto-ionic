@@ -4,24 +4,38 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'login-select',
+    redirectTo: 'login',
     pathMatch: 'full'
+  },
+  // Keep a single login route; redirect legacy login routes to the single login page
+  {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule)
   },
   {
     path: 'login-select',
-    loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule)
+    redirectTo: 'login',
+    pathMatch: 'full'
   },
   {
     path: 'login-usuario',
-    loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule)
+    redirectTo: 'login',
+    pathMatch: 'full'
   },
   {
     path: 'login-admin',
-    loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule)
+    redirectTo: 'login',
+    pathMatch: 'full'
+  },
+  // Single register route; redirect legacy register path
+  {
+    path: 'register',
+    loadChildren: () => import('./register/register.module').then(m => m.RegisterPageModule)
   },
   {
     path: 'register-usuario',
-    loadChildren: () => import('./register/register.module').then(m => m.RegisterPageModule)
+    redirectTo: 'register',
+    pathMatch: 'full'
   },
   {
     path: 'usuario-dashboard',
