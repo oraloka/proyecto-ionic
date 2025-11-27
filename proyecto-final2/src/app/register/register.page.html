@@ -17,17 +17,31 @@
 
     <!-- Registration Form -->
     <form (ngSubmit)="onRegister()" class="register-form">
-      <!-- Name Field -->
-      <div class="form-group">
-        <div class="modern-input">
-          <ion-icon name="person-outline"></ion-icon>
-          <ion-input 
-            type="text" 
-            [(ngModel)]="name" 
-            name="name" 
-            placeholder="Nombre completo"
-            required>
-          </ion-input>
+      <!-- First and Last Name Fields -->
+      <div class="form-row">
+        <div class="form-group half-width">
+          <div class="modern-input">
+            <ion-icon name="person-outline"></ion-icon>
+            <ion-input
+              type="text"
+              [(ngModel)]="name"
+              name="name"
+              placeholder="Nombre"
+              required>
+            </ion-input>
+          </div>
+        </div>
+        <div class="form-group half-width">
+          <div class="modern-input">
+            <ion-icon name="person-outline"></ion-icon>
+            <ion-input
+              type="text"
+              [(ngModel)]="apellido"
+              name="apellido"
+              placeholder="Apellido"
+              required>
+            </ion-input>
+          </div>
         </div>
       </div>
 
@@ -63,6 +77,48 @@
           </ion-icon>
         </div>
       </div>
+
+        <!-- Phone Field -->
+        <div class="form-group">
+          <div class="modern-input">
+            <ion-icon name="call-outline"></ion-icon>
+            <ion-input
+              type="tel"
+              [(ngModel)]="telefono"
+              name="telefono"
+              placeholder="Teléfono"
+              required>
+            </ion-input>
+          </div>
+        </div>
+
+        <!-- Address Field -->
+        <div class="form-group">
+          <div class="modern-input">
+            <ion-icon name="home-outline"></ion-icon>
+            <ion-input
+              type="text"
+              [(ngModel)]="direccion"
+              name="direccion"
+              placeholder="Dirección"
+              required>
+            </ion-input>
+          </div>
+        </div>
+
+        <!-- Cedula Field -->
+        <div class="form-group">
+          <div class="modern-input">
+            <ion-icon name="card-outline"></ion-icon>
+            <ion-input
+              type="text"
+              [(ngModel)]="cedula"
+              name="cedula"
+              placeholder="Cédula / DNI"
+              required>
+            </ion-input>
+          </div>
+        </div>
 
       <!-- Confirm Password Field -->
       <div class="form-group">
