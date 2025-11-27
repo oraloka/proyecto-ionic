@@ -43,7 +43,6 @@
         <ion-icon slot="start" name="add-circle-outline"></ion-icon>
         Nueva Solicitud
       </ion-button>
-      <!-- Edit profile button added per request: always visible -->
       <ion-button expand="block" class="modern-button tertiary-action" (click)="toggleEditProfile()">
         <ion-icon slot="start" [name]="isEditingProfile ? 'eye-outline' : 'pencil-outline'"></ion-icon>
         {{ isEditingProfile ? 'Ver Perfil' : 'Editar Perfil' }}
@@ -58,7 +57,6 @@
     <ion-card class="modern-card profile-card">
       <ion-card-header class="card-header">
         <ion-card-title class="card-title">Mi Perfil</ion-card-title>
-        <!-- Always show an edit toggle button; icon and aria-label change by state -->
         <ion-button slot="end" fill="clear" (click)="toggleEditProfile()" class="edit-icon-button" [attr.aria-label]="isEditingProfile ? 'Ver perfil' : 'Editar perfil'">
           <ion-icon slot="icon-only" [name]="isEditingProfile ? 'eye-outline' : 'pencil-outline'"></ion-icon>
         </ion-button>

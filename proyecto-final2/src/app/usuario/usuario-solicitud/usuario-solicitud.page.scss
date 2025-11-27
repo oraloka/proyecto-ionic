@@ -1,1 +1,248 @@
-/* Usuario solicitud page styles */
+// Variables
+$primary-color: #4f46e5;
+$primary-dark: #4338ca;
+$success-color: #10b981;
+$text-primary: #1f2937;
+$text-secondary: #6b7280;
+$border-color: #e5e7eb;
+$background: #f9fafb;
+$white: #ffffff;
+$shadow: 0 2px 8px rgba(29, 15, 15, 0.08);
+
+.professional-home {
+  --background: #{$background};
+
+  .content-wrapper {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 1.5rem;
+  }
+
+  .modern-card {
+    background: $white;
+    border-radius: 16px;
+    box-shadow: $shadow;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+
+    .card-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid $border-color;
+
+      .card-title {
+        font-size: 1.375rem;
+        font-weight: 700;
+        color: $text-primary;
+        margin: 0 0 0.25rem;
+      }
+
+      .card-subtitle {
+        font-size: 0.875rem;
+        color: $text-secondary;
+        margin: 0;
+      }
+    }
+
+    ion-card-content {
+      padding: 1.5rem;
+    }
+  }
+
+  .form-intro {
+    background: linear-gradient(135deg, $primary-color 0%, $primary-dark 100%);
+
+    .card-header {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+
+      .card-title {
+        color: $white;
+      }
+
+      .card-subtitle {
+        color: rgba(255, 255, 255, 0.9);
+      }
+    }
+  }
+
+  .form-section {
+    .form-group {
+      margin-bottom: 1rem;
+
+      .modern-item {
+        --background: #{$background};
+        --border-radius: 12px;
+        --padding-start: 16px;
+        --inner-padding-end: 16px;
+        border: 2px solid $border-color;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+
+        &:focus-within {
+          border-color: $primary-color;
+          box-shadow: 0 0 0 4px rgba($primary-color, 0.1);
+        }
+
+        ion-label {
+          font-weight: 600;
+          color: $text-secondary;
+          font-size: 0.875rem;
+        }
+
+        ion-input,
+        ion-select,
+        ion-datetime {
+          --placeholder-color: #{$text-secondary};
+          --color: #{$text-primary};
+          margin-top: 0.5rem;
+        }
+
+        &.textarea-item {
+          --inner-padding-top: 16px;
+          --inner-padding-bottom: 16px;
+
+          ion-textarea {
+            --placeholder-color: #{$text-secondary};
+            --color: #{$text-primary};
+            margin-top: 0.5rem;
+          }
+        }
+      }
+    }
+  }
+
+  .services-section {
+    padding: 1rem !important;
+
+    .services-list {
+      .service-item {
+        display: flex;
+        align-items: center;
+        padding: 1rem;
+        background: $background;
+        border-radius: 12px;
+        margin-bottom: 0.75rem;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background: darken($background, 2%);
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .service-checkbox {
+          margin-right: 1rem;
+
+          ion-checkbox {
+            --border-color: #{$border-color};
+            --border-color-checked: #{$primary-color};
+            --background-checked: #{$primary-color};
+          }
+        }
+
+        .service-info {
+          flex: 1;
+
+          .service-name {
+            font-size: 1rem;
+            font-weight: 500;
+            color: $text-primary;
+            margin: 0;
+          }
+        }
+
+        .service-price {
+          .price-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: $white;
+            border: 2px solid $border-color;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 700;
+            color: $primary-color;
+          }
+        }
+      }
+    }
+  }
+
+  .total-card {
+    background: linear-gradient(135deg, $success-color 0%, darken($success-color, 10%) 100%);
+
+    ion-card-content {
+      .total-section {
+        text-align: center;
+        padding: 1rem 0;
+
+        .total-label {
+          display: block;
+          color: rgba(255, 255, 255, 0.9);
+          font-size: 1rem;
+          margin-bottom: 0.5rem;
+        }
+
+        .total-value {
+          color: $white;
+          font-size: 2.5rem;
+          font-weight: 800;
+          margin: 0;
+        }
+      }
+    }
+  }
+
+  .action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+
+    .modern-button {
+      --border-radius: 12px;
+      --padding-top: 16px;
+      --padding-bottom: 16px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-transform: none;
+      transition: all 0.3s ease;
+
+      &.primary-action {
+        --background: #{$primary-color};
+        --background-hover: #{$primary-dark};
+        box-shadow: 0 4px 12px rgba($primary-color, 0.3);
+
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 6px 16px rgba($primary-color, 0.4);
+        }
+      }
+
+      &.secondary-action {
+        --border-width: 2px;
+        --border-color: #{$border-color};
+        --color: #{$text-primary};
+
+        &:hover {
+          --border-color: #{$primary-color};
+          --color: #{$primary-color};
+        }
+      }
+    }
+
+    @media (min-width: 768px) {
+      flex-direction: row;
+    }
+  }
+}
+
+.professional-header {
+  .toolbar-modern {
+    --background: #{$white};
+    --border-width: 0 0 1px 0;
+    --border-color: #{$border-color};
+
+    ion-title {
+      font-weight: 700;
+      color: $text-primary;
+    }
+  }
+}

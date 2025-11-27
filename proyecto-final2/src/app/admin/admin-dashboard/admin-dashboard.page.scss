@@ -1,13 +1,363 @@
-/* Admin dashboard styles - professional */
-.filter-card {
-	margin-bottom: 12px;
-}
-.stats {
-	display:flex; gap:12px; margin-bottom:12px;
-}
-.stat-value { padding:8px 12px; border-radius:8px; background: rgba(255,255,255,0.02); }
-.stat-value.pending { color: var(--ion-color-warning); }
-.stat-value.approved { color: var(--ion-color-success); }
-.stat-value.rejected { color: var(--ion-color-danger); }
-.request-list ion-item { border-radius:8px; margin-bottom:8px; background: rgba(255,255,255,0.01); }
+// Variables
+$primary-color: #4f46e5;
+$success-color: #10b981;
+$warning-color: #f59e0b;
+$error-color: #ef4444;
+$info-color: #3b82f6;
+$text-primary: #1f2937;
+$text-secondary: #6b7280;
+$border-color: #e5e7eb;
+$background: #f9fafb;
+$white: #ffffff;
+$shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 
+.professional-home {
+  --background: #{$background};
+
+  .content-wrapper {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1.5rem;
+  }
+
+  .modern-card {
+    background: $white;
+    border-radius: 16px;
+    box-shadow: $shadow;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+
+    .card-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid $border-color;
+
+      .card-title {
+        font-size: 1.375rem;
+        font-weight: 700;
+        color: $text-primary;
+        margin: 0;
+      }
+    }
+
+    ion-card-content {
+      padding: 1.5rem;
+    }
+  }
+
+  .filter-card {
+    .form-group {
+      margin-bottom: 0;
+
+      .modern-item {
+        --background: #{$background};
+        --border-radius: 12px;
+        --padding-start: 16px;
+        --inner-padding-end: 16px;
+        border: 2px solid $border-color;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+
+        &:focus-within {
+          border-color: $primary-color;
+          box-shadow: 0 0 0 4px rgba($primary-color, 0.1);
+        }
+
+        ion-label {
+          font-weight: 600;
+          color: $text-secondary;
+          font-size: 0.875rem;
+        }
+
+        ion-input,
+        ion-select {
+          --placeholder-color: #{$text-secondary};
+          --color: #{$text-primary};
+          margin-top: 0.5rem;
+        }
+      }
+    }
+  }
+
+  .stats-card {
+    background: linear-gradient(135deg, $primary-color 0%, darken($primary-color, 10%) 100%);
+
+    .card-header {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+
+      .card-title {
+        color: $white;
+      }
+    }
+
+    ion-card-content {
+      padding: 1rem;
+
+      .stat-item {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        border-radius: 12px;
+        padding: 1.5rem 1rem;
+        text-align: center;
+
+        .stat-label {
+          color: rgba(255, 255, 255, 0.8);
+          font-size: 0.875rem;
+          display: block;
+          margin-bottom: 0.5rem;
+          font-weight: 600;
+        }
+
+        .stat-value {
+          color: $white;
+          font-size: 2.5rem;
+          font-weight: 800;
+          line-height: 1;
+
+          &.pending {
+            color: lighten($warning-color, 20%);
+          }
+
+          &.approved {
+            color: lighten($success-color, 20%);
+          }
+
+          &.rejected {
+            color: lighten($error-color, 20%);
+          }
+        }
+      }
+    }
+  }
+
+  .requests-header {
+    background: linear-gradient(135deg, $info-color 0%, darken($info-color, 10%) 100%);
+
+    .card-header {
+      border-bottom: none;
+
+      .card-title {
+        color: $white;
+      }
+    }
+  }
+
+  .request-item {
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    }
+
+    .request-content {
+      padding: 1.5rem;
+
+      .request-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 1rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid $border-color;
+
+        .request-info {
+          flex: 1;
+
+          .request-user {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: $text-primary;
+            margin: 0 0 0.5rem;
+          }
+
+          .request-vehicle {
+            font-size: 1rem;
+            font-weight: 500;
+            color: $text-secondary;
+            margin: 0 0 0.25rem;
+          }
+
+          .request-details-text {
+            font-size: 0.875rem;
+            color: $text-secondary;
+            margin: 0;
+          }
+        }
+
+        .status-badge {
+          display: inline-block;
+          padding: 0.5rem 1rem;
+          border-radius: 20px;
+          font-size: 0.75rem;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+
+          &.status-pendiente {
+            background: rgba($warning-color, 0.15);
+            color: darken($warning-color, 10%);
+          }
+
+          &.status-aceptada,
+          &.status-aprobada {
+            background: rgba($success-color, 0.15);
+            color: darken($success-color, 10%);
+          }
+
+          &.status-rechazada {
+            background: rgba($error-color, 0.15);
+            color: darken($error-color, 10%);
+          }
+        }
+      }
+
+      .request-details {
+        margin-bottom: 1rem;
+
+        .detail-label {
+          display: block;
+          font-size: 0.75rem;
+          font-weight: 600;
+          color: $text-secondary;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          margin-bottom: 0.25rem;
+        }
+
+        .detail-value {
+          font-size: 0.9375rem;
+          font-weight: 600;
+          color: $text-primary;
+          margin: 0;
+        }
+      }
+
+      .action-buttons {
+        display: flex;
+        gap: 0.75rem;
+        margin-top: 1rem;
+
+        ion-button {
+          flex: 1;
+          --border-radius: 10px;
+          --padding-top: 12px;
+          --padding-bottom: 12px;
+          font-weight: 600;
+          text-transform: none;
+          transition: all 0.3s ease;
+
+          &.approve-button {
+            --background: #{$success-color};
+            --background-hover: #{darken($success-color, 8%)};
+
+            &:hover {
+              transform: translateY(-2px);
+              box-shadow: 0 4px 12px rgba($success-color, 0.3);
+            }
+          }
+
+          &.reject-button {
+            --background: #{$error-color};
+            --background-hover: #{darken($error-color, 8%)};
+
+            &:hover {
+              transform: translateY(-2px);
+              box-shadow: 0 4px 12px rgba($error-color, 0.3);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .detail-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 900px;
+    max-height: 80vh;
+    overflow-y: auto;
+    z-index: 1000;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .close-button {
+        --color: #{$text-secondary};
+        font-size: 1.5rem;
+
+        &:hover {
+          --color: #{$error-color};
+        }
+      }
+    }
+
+    .detail-content {
+      .detail-section {
+        background: $background;
+        padding: 1.25rem;
+        border-radius: 12px;
+        margin-bottom: 1rem;
+
+        .section-label {
+          display: block;
+          font-size: 0.875rem;
+          font-weight: 700;
+          color: $primary-color;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          margin-bottom: 0.75rem;
+        }
+
+        p {
+          font-size: 0.9375rem;
+          color: $text-primary;
+          margin: 0.5rem 0;
+          line-height: 1.6;
+
+          strong {
+            color: $text-secondary;
+            font-weight: 600;
+          }
+        }
+      }
+
+      .close-button-bottom {
+        --color: #{$primary-color};
+        --border-width: 2px;
+        --border-color: #{$primary-color};
+        --border-radius: 12px;
+        font-weight: 600;
+        text-transform: none;
+        margin-top: 1rem;
+      }
+    }
+  }
+}
+
+.professional-header {
+  .toolbar-modern {
+    --background: #{$white};
+    --border-width: 0 0 1px 0;
+    --border-color: #{$border-color};
+
+    ion-title {
+      font-weight: 700;
+      color: $text-primary;
+    }
+
+    ion-button {
+      --color: #{$text-secondary};
+
+      &:hover {
+        --color: #{$error-color};
+      }
+    }
+  }
+}
