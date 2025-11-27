@@ -156,6 +156,18 @@ export class AuthService {
       users2.push(extraAdmin);
       localStorage.setItem(this.USERS_KEY, JSON.stringify(users2));
     }
+
+    // Remove deprecated admin account if present (cajlpj@gmail.com)
+    try {
+      const cleanedUsers = this.getAllUsers().filter(u => u.email !== 'cajlpj@gmail.com');
+      // Only write back if there was a change
+      if (cleanedUsers.length !== this.getAllUsers().length) {
+        localStorage.setItem(this.USERS_KEY, JSON.stringify(cleanedUsers));
+        console.info('Removed deprecated admin account cajlpj@gmail.com');
+      }
+    } catch (e) {
+      console.warn('Could not remove deprecated admin account:', e);
+    }
   }
 
   /**
