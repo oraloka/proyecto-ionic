@@ -133,9 +133,11 @@ export class LoginPage implements OnInit {
           apellido = parts.join(' ') || '';
         }
         if (email) {
-          const user = this.authService.ensureUserByEmail(email, nombre, apellido);
+          // Use googleLogin helper to create a local user with googleAuth flag
+          const result = this.authService.googleLogin(email, nombre, apellido);
+          const user = result.user;
           // Si el usuario de Google no tiene contraseña local, pedirle que la establezca
-          if (!user.password) {
+          if (user && !user.password) {
             localStorage.setItem('openSetPasswordModal', 'true');
             localStorage.setItem('googleUserEmail', email);
           }
