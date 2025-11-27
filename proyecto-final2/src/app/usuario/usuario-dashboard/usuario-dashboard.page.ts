@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { RequestService } from '../../services/request.service';
 import { User } from '../../models/user.model';
 import { ToastController } from '@ionic/angular';
 
@@ -14,8 +15,9 @@ export class UsuarioDashboardPage implements OnInit {
   user: User | null = null;
   isEditingProfile = false;
   editForm = { nombre: '', apellido: '', email: '', telefono: '', cedula: '', direccion: '', password: '', confirmPassword: '' };
+  stats = { total: 0, pending: 0, accepted: 0, rejected: 0 };
 
-  constructor(private auth: AuthService, private router: Router, private toast: ToastController) {}
+  constructor(private auth: AuthService, private router: Router, private toast: ToastController, private reqSvc: RequestService) {}
 
   ngOnInit() {
     this.user = this.auth.getCurrentUser();
@@ -23,6 +25,7 @@ export class UsuarioDashboardPage implements OnInit {
       this.router.navigate(['/login']);
     } else {
       this.initEditForm();
+      this.loadStats();
     }
     // If redirected to complete profile, open editor automatically
     const open = localStorage.getItem('openEditProfile');
@@ -123,6 +126,15 @@ export class UsuarioDashboardPage implements OnInit {
     this.router.navigateByUrl('/usuario-solicitud').catch(err => {
       console.error('Navigation error to /usuario-solicitud', err);
     });
+  }
+
+  private loadStats() {
+    if (!this.user) return;
+    const requests = this.reqSvc.getRequestsByUser(this.user.id!);
+    this.stats.total = requests.length;
+    this.stats.pending = requests.filter(r => r.status === 'pendiente').length;
+    this.stats.accepted = requests.filter(r => r.status === 'aceptada').length;
+    this.stats.rejected = requests.filter(r => r.status === 'rechazada').length;
   }
 
   logout() {

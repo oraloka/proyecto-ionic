@@ -8,6 +8,46 @@ export class AuthService {
 
   constructor() {
     this.initializeAdminUser();
+    // Perform a one-time cleanup: remove non-admin users and clear requests so
+    // the workspace can start fresh. This runs only once and sets a flag
+    // `mf_initial_cleanup_done` in localStorage to avoid accidental repeated wipes.
+    try {
+      const cleaned = localStorage.getItem('mf_initial_cleanup_done');
+      if (!cleaned) {
+        this.purgeNonAdminData();
+        localStorage.setItem('mf_initial_cleanup_done', '1');
+      }
+    } catch (e) {
+      console.warn('Could not perform initial cleanup:', e);
+    }
+  }
+
+  /**
+   * Remove all non-admin users and clear all requests stored in localStorage.
+   * This helps reset the app state while preserving admin accounts.
+   */
+  purgeNonAdminData() {
+    try {
+      const users = this.getAllUsers();
+      const admins = users.filter(u => u.rol === 'admin');
+      localStorage.setItem(this.USERS_KEY, JSON.stringify(admins));
+      // Remove current user if it's not an admin
+      const current = this.getCurrentUser();
+      if (current && current.rol !== 'admin') {
+        localStorage.removeItem(this.CURRENT_USER_KEY);
+      }
+      // Clear requests store (delegate to request key used elsewhere)
+      try {
+        localStorage.removeItem('mf_requests_v1');
+      } catch (e) {
+        // ignore
+      }
+      console.info('Initial cleanup: removed non-admin users and cleared requests');
+      return true;
+    } catch (err) {
+      console.error('Error during purgeNonAdminData', err);
+      return false;
+    }
   }
 
   private initializeAdminUser() {
