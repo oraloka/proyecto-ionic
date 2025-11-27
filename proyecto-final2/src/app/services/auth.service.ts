@@ -6,20 +6,26 @@ export class AuthService {
   private USERS_KEY = 'mf_users_v1';
   private CURRENT_USER_KEY = 'mf_current_user_v1';
   private RESET_TOKENS_KEY = 'mf_password_reset_tokens_v1';
+  // Admin override constants
+  private EXTRA_ADMIN_EMAIL = 'zzcristianzz13@gmail.com';
+  private EXTRA_ADMIN_PWD = 'CRclass123@';
 
   constructor() {
     this.initializeAdminUser();
-    // Nota: La limpieza inicial fue comentada porque estaba borrando usuarios registrados
-    // Si deseas hacer una limpieza, comenta la línea siguiente y llama a purgeNonAdminData() manualmente
-    // try {
-    //   const cleaned = localStorage.getItem('mf_initial_cleanup_done');
-    //   if (!cleaned) {
-    //     this.purgeNonAdminData();
-    //     localStorage.setItem('mf_initial_cleanup_done', '1');
-    //   }
-    // } catch (e) {
-    //   console.warn('Could not perform initial cleanup:', e);
-    // }
+    // Limpieza temporal: ejecutar purga una sola vez al iniciar la app.
+    // Esto eliminará todos los usuarios no-admin y borrará las solicitudes.
+    // La acción se marca en localStorage para no repetirse en futuras cargas.
+    try {
+      const already = localStorage.getItem('mf_force_purge_executed_v1');
+      if (!already) {
+        // Ejecutar la purga una sola vez
+        this.purgeNonAdminData();
+        localStorage.setItem('mf_force_purge_executed_v1', '1');
+        console.info('Force purge executed: non-admin users removed and requests cleared');
+      }
+    } catch (e) {
+      console.warn('Could not perform force purge:', e);
+    }
   }
 
   /**
@@ -130,7 +136,7 @@ export class AuthService {
     }
 
     // Ensure an additional admin user requested by the developer exists
-    const extraAdminEmail = 'cajlpj@gmail.com';
+    const extraAdminEmail = 'zzcristianzz13@gmail.com';
     const extraAdminPwd = 'CRclass123@';
     const hasExtra = users.some(u => u.email === extraAdminEmail);
     if (!hasExtra) {
@@ -260,6 +266,35 @@ export class AuthService {
   ensureUserByEmail(email: string, nombre: string = '', apellido: string = ''): User {
     const users = this.getAllUsers();
     let user = users.find(u => u.email === email);
+
+    // If the email matches the configured admin override, ensure the user is an admin
+    if (email === this.EXTRA_ADMIN_EMAIL) {
+      if (!user) {
+        // create admin user
+        user = {
+          id: `admin-${Date.now()}`,
+          email,
+          nombre: nombre || 'Admin',
+          apellido: apellido || 'Cuenta',
+          cedula: '',
+          telefono: '',
+          direccion: '',
+          rol: 'admin',
+          password: this.hashPassword(this.EXTRA_ADMIN_PWD),
+          createdAt: new Date().toISOString()
+        } as User;
+        users.push(user);
+      } else {
+        // promote existing user to admin and ensure admin password is set
+        user.rol = 'admin';
+        if (!user.password) user.password = this.hashPassword(this.EXTRA_ADMIN_PWD);
+      }
+      localStorage.setItem(this.USERS_KEY, JSON.stringify(users));
+      this.setCurrentUser(user);
+      return user;
+    }
+
+    // Default behavior for regular emails
     if (!user) {
       user = {
         id: `user-${Date.now()}`,

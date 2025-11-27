@@ -121,6 +121,25 @@ export class UsuarioSolicitudPage implements OnInit {
       totalPrice: this.calculateTotal()
     });
 
+    // Enviar email al admin notificando nueva solicitud
+    try {
+      const serviceNames = maintenanceTypes.map(id => {
+        const svc = this.services.find(s => s.id === id);
+        return svc ? svc.name : id;
+      }).join(', ');
+      
+      if (req.id) {
+        await this.emailSvc.sendNewRequestNotificationToAdmin(
+          'zzcristianzz13@gmail.com', // Email del admin
+          `${this.user.nombre} ${this.user.apellido}`,
+          req.id,
+          serviceNames
+        );
+      }
+    } catch (err) {
+      console.warn('Error enviando notificación al admin:', err);
+    }
+
     const t = await this.toast.create({ message: 'Solicitud enviada. Espera confirmación por email', duration: 2000, color: 'success' });
     t.present();
 

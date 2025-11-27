@@ -38,7 +38,7 @@ export class AdminDashboardPage implements OnInit {
     const updated = this.req.updateRequestStatus(id, 'aceptada');
     if (updated) {
       await this.email.sendRequestAcceptedEmail(updated.userEmail, updated.id, updated.userName);
-      const t = await this.toast.create({ message: 'Solicitud aceptada y notificación enviada', duration: 2000, color: 'success' });
+      const t = await this.toast.create({ message: 'Solicitud aceptada y notificación enviada al usuario', duration: 2000, color: 'success' });
       t.present();
       this.load();
     }
@@ -62,8 +62,8 @@ export class AdminDashboardPage implements OnInit {
             const reason = data?.reason || '';
             const updated = this.req.updateRequestStatus(id, 'rechazada', reason);
             if (updated) {
-              await this.email.sendRequestRejectedEmail(updated.userEmail, updated.id, updated.userName);
-              const t = await this.toast.create({ message: 'Solicitud rechazada y notificación enviada', duration: 2000, color: 'medium' });
+              await this.email.sendRequestRejectedEmail(updated.userEmail, updated.id, updated.userName, reason);
+              const t = await this.toast.create({ message: 'Solicitud rechazada y notificación enviada al usuario', duration: 2000, color: 'medium' });
               t.present();
               this.load();
             }
